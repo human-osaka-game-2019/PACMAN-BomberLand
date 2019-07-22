@@ -4,8 +4,8 @@
 #include <windows.h>
 #include <tchar.h>
 
-const INT Width = 1280; //!ウィンドウの横幅
-const INT Height = 720; //!ウィンドウの縦幅
+const INT Width = 1920; //!ウィンドウの横幅
+const INT Height = 1080; //!ウィンドウの縦幅
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
 
