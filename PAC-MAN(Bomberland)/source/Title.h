@@ -1,13 +1,16 @@
 ﻿#ifndef TITLE_H_
 #define TITLE_H_
 
+#include "Main.h"
+
 class TITLE {
 public:
+
 	TITLE();
 
 	~TITLE();
 
-	void UpdateTitleScene();
+	void UpdateScene();
 
 
 private:
@@ -16,7 +19,14 @@ private:
 		MainStep,
 		ReleaseStep
 	};
+
+	bool is_start = true;
+
 	STEP step = LoadStep;
+	void Loading();
+	void Release();
+	void Draw();
+	void Control();
 
 };
 

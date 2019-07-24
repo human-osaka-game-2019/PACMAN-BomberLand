@@ -32,16 +32,22 @@
     <ClInclude Include="source\Size.h">
       <Filter>便利ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="source\Character.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GameClear.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GameOver.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="source\DirectX.h">
+      <Filter>便利ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Information.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="GameClear.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="GameOver.h">
+    <ClInclude Include="source\Bomb.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -55,13 +61,19 @@
     <ClCompile Include="source\Title.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Character.cpp">
+    <ClCompile Include="source\Character.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="GameClear.cpp">
+    <ClCompile Include="source\GameClear.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="GameOver.cpp">
+    <ClCompile Include="source\GameOver.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Information.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Bomb.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

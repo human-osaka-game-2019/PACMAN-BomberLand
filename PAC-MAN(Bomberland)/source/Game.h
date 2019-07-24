@@ -5,7 +5,10 @@ class GAME {
 public:
 	GAME();
 	~GAME();
+
 private:
+
+
 
 };
 

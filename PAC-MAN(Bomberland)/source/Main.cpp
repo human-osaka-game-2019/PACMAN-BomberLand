@@ -1,19 +1,23 @@
 ﻿#include "Main.h"
 #include "DirectX.h"
+#include "Title.h"
+#include "Information.h"
+#include "Game.h"
+#include "GameClear.h"
+#include "GameOver.h"
 
 #pragma comment(lib,"winmm.lib")
 #pragma comment(lib,"DirectX.lib")
-
-using DX::DirectX;
-
-DirectX dx;
 
 INT WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ PSTR lpCmdline, _In_ INT nCmdShow) {
 	const TCHAR API_NAME[] = _T("PAC-MAN ボンバーランド");
 	MSG msg;
 
 	TITLE title;
+	
 	GAME game;
+
+	
 
 	HWND hWnd = GenerateWindow(&hInstance, API_NAME);
 
@@ -70,8 +74,8 @@ HWND GenerateWindow(HINSTANCE* hInstance, const TCHAR* API_NAME) {
 		WS_OVERLAPPEDWINDOW | WS_VISIBLE,
 		0,
 		0,
-		Width,
-		Height,
+		window_width,
+		window_height,
 		NULL,
 		NULL,
 		*hInstance,
@@ -97,9 +101,12 @@ VOID Mainloop(MSG* msg) {
 				dx.pD3Device->BeginScene();
 
 				dx.UpdateKeyState();
+
 				switch (g_scene)
 				{
-				case Title:
+				case Title:title.UpdateScene();
+					break;
+				case Information:
 					break;
 				case Game:
 					break;

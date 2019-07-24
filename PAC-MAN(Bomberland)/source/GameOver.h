@@ -5,7 +5,11 @@ class GAMEOVER {
 public:
 	GAMEOVER();
 	~GAMEOVER();
+
 private:
+
+
+
 };
 
 #endif //GAMEOVER_H_

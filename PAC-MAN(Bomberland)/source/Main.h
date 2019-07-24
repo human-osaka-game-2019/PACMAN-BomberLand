@@ -4,25 +4,29 @@
 #include <windows.h>
 #include <tchar.h>
 
-#include "Title.h"
-#include "Game.h"
-#include "GameClear.h"
-#include "GameOver.h"
+#include "DirectX.h"
+
+using DX::DirectX;
+
+DirectX dx;
 
 //!ウィンドウの横幅
-const INT Width = 1920;
+const INT window_width = 1920;
 
 //!ウィンドウの縦幅
-const INT Height = 1080;
+const INT window_height = 1080;
 
 enum SCENE {
 	Title,
+	Information,
 	Game,
 	GameClear,
 	GameOver
 };
 
 SCENE g_scene = Title;
+
+SCENE SwitchScene(SCENE);
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
 
