@@ -3,6 +3,8 @@
 
 class GAMECLEAR {
 public:
+	GAMECLEAR();
+	~GAMECLEAR();
 private:
 };
 

@@ -3,6 +3,8 @@
 
 class GAMEOVER {
 public:
+	GAMEOVER();
+	~GAMEOVER();
 private:
 };
 
