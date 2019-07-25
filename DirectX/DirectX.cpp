@@ -237,7 +237,10 @@ namespace DX {
 	}
 
 	VOID DirectX::Draw(FLOAT x, FLOAT y, FLOAT width, FLOAT height,FLOAT degree,FLOAT zoom, BOOL is_Reverse, std::string texture_name) {
-		DrawObject(texture_name, SetVertex(x, y, width, height, zoom, is_Reverse, 0.0f, 0.0f, 1.0f, 1.0f), degree);
+		FLOAT TopLeftX = x + width / 2;
+		FLOAT TopLeftY = y + height / 2;
+
+		DrawObject(texture_name, SetVertex(TopLeftX, TopLeftY, width, height, zoom, is_Reverse, 0.0f, 0.0f, 1.0f, 1.0f), degree);
 	}
 
 	VOID DirectX::DrawEx(FLOAT x,
@@ -255,19 +258,18 @@ namespace DX {
 		FLOAT tv_height,
 		FLOAT rhw,
 		DWORD color){
-		DrawObject(texture_name, SetVertex(x, y, width, height, zoom, is_Reverse, tu, tv, tu_width, tv_height), degree);
+		FLOAT TopLeftX = x + width / 2;
+		FLOAT TopLeftY = y + height / 2;
+		DrawObject(texture_name, SetVertex(TopLeftX, TopLeftY, width, height, zoom, is_Reverse, tu, tv, tu_width, tv_height), degree);
 	}
 
 	VOID DirectX::DrawCenter(FLOAT x, FLOAT y, FLOAT width, FLOAT height, FLOAT degree, FLOAT zoom, BOOL is_Reverse, std::string texture_name) {
-		FLOAT CenterX = x - width / 2;
-		FLOAT CenterY = y - height / 2;
-
-		DrawObject(texture_name, SetVertex(CenterX, CenterY, width, height, zoom, is_Reverse, 0.0f, 0.0f, 1.0f, 1.0f), degree);
+		DrawObject(texture_name, SetVertex(x, y, width, height, zoom, is_Reverse, 0.0f, 0.0f, 1.0f, 1.0f), degree);
 	}
 
 	VOID DirectX::DrawCenterEx(
-		FLOAT center_x,
-		FLOAT center_y,
+		FLOAT x,
+		FLOAT y,
 		FLOAT z,
 		FLOAT width,
 		FLOAT height,
@@ -281,9 +283,6 @@ namespace DX {
 		FLOAT tv_height,
 		FLOAT rhw,
 		DWORD color){
-
-		FLOAT x = center_x - width / 2;
-		FLOAT y = center_y - height / 2;
 		DrawObject(texture_name, SetVertex(x, y, width, height, zoom, is_Reverse, tu, tv, tu_width, tv_height), degree);
 	}
 

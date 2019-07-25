@@ -281,8 +281,8 @@ namespace DX {
 		*@param 色
 		*/
 		VOID DrawCenterEx(
-			FLOAT center_x,
-			FLOAT center_y,
+			FLOAT x,
+			FLOAT y,
 			FLOAT z,
 			FLOAT width,
 			FLOAT height,
