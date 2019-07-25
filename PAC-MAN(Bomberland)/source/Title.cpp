@@ -15,16 +15,16 @@ void TITLE::UpdateScene() {
 }
 
 void TITLE::Loading() {
-	dx.LoadTexture("Title_BG.jpg", "Title_BG");
+	dx.LoadTexture("resource/Title_BG.jpg", "Title_BG");
 	step = MainStep;
 }
 
 void TITLE::Draw() {
-	dx.Draw(0, 0, window_width, window_height, 0.0f, 0.0f, false, "Title_BG");
+	dx.Draw(0, 0, window_width, window_height, 0.0f, 1.0f, false, "Title_BG");
 }
 
 void TITLE::Control() {
-	if (dx.GetKeyState[DIK_SPACE] == dx.ON) {
+	if (dx.KeyState[DIK_SPACE] == dx.ON) {
 		step = ReleaseStep;
 	}
 }

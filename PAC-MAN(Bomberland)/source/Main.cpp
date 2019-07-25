@@ -7,7 +7,21 @@
 #include "GameOver.h"
 
 #pragma comment(lib,"winmm.lib")
-#pragma comment(lib,"DirectX.lib")
+
+#ifdef _DEBUG
+#pragma comment(lib,"../x64/Debug/DirectX.lib")
+#else
+#pragma comment (lib, "../x64/Release/DirectX.lib")
+#endif
+
+DirectX dx;
+SCENE g_scene = Title;
+
+/*
+*@brief メインループ
+*@param MSGのポインタ変数
+*/
+VOID Mainloop(MSG* msg, TITLE* title);
 
 INT WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ PSTR lpCmdline, _In_ INT nCmdShow) {
 	const TCHAR API_NAME[] = _T("PAC-MAN ボンバーランド");
@@ -23,7 +37,7 @@ INT WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	dx.InitDirectX(hWnd);
 
-	Mainloop(&msg);
+	Mainloop(&msg,&title);
 
 	dx.AllRelease();
 	return (int)msg.wParam;
@@ -60,7 +74,7 @@ HWND GenerateWindow(HINSTANCE* hInstance, const TCHAR* API_NAME) {
 	Wndclass.cbClsExtra = 0;
 	Wndclass.cbWndExtra = 0;
 	Wndclass.hInstance = *hInstance;
-	Wndclass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+	Wndclass.hIcon = LoadIcon(NULL, IDC_ICON);
 	Wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);
 	Wndclass.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	Wndclass.lpszMenuName = NULL;
@@ -83,7 +97,7 @@ HWND GenerateWindow(HINSTANCE* hInstance, const TCHAR* API_NAME) {
 	);
 }
 
-VOID Mainloop(MSG* msg) {
+VOID Mainloop(MSG* msg,TITLE* title) {
 	DWORD Prev = timeGetTime();
 	DWORD Curr;
 
@@ -104,7 +118,7 @@ VOID Mainloop(MSG* msg) {
 
 				switch (g_scene)
 				{
-				case Title:title.UpdateScene();
+				case Title:title->UpdateScene();
 					break;
 				case Information:
 					break;

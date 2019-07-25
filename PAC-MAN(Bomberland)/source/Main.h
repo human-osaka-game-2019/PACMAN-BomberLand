@@ -8,7 +8,7 @@
 
 using DX::DirectX;
 
-DirectX dx;
+extern DirectX dx;
 
 //!ウィンドウの横幅
 const INT window_width = 1920;
@@ -24,7 +24,7 @@ enum SCENE {
 	GameOver
 };
 
-SCENE g_scene = Title;
+extern SCENE g_scene;
 
 SCENE SwitchScene(SCENE);
 
@@ -37,11 +37,5 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
 *@return ウィンドウハンドル
 */
 HWND GenerateWindow(HINSTANCE* hInstance,const TCHAR* API_NAME);
-
-/*
-*@brief メインループ
-*@param MSGのポインタ変数
-*/
-VOID Mainloop(MSG* msg);
 
 #endif //MAIN_H_
