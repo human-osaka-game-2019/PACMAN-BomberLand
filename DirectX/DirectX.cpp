@@ -33,9 +33,9 @@ namespace DX {
 			return E_FAIL;
 		}
 
-		SetSampler();
 		SetRenderState();
 		SetTextureStage();
+		SetSampler();
 
 		pD3Device->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE |D3DFVF_TEX1);
 
@@ -177,8 +177,8 @@ namespace DX {
 	}
 
 	VOID DirectX::AllRelease() {
-		TextureRelease();
-		FontRelease();
+		AllTextureRelease();
+		AllFontRelease();
 		if (pDxIKeyDevice)
 		{
 			pDxIKeyDevice->Unacquire();
@@ -201,7 +201,13 @@ namespace DX {
 		}
 	}
 
-	VOID DirectX::TextureRelease() {
+	VOID DirectX::TextureRelease(std::string TextureName) {
+		if (pTexture[TextureName] != nullptr) {
+			pTexture[TextureName]->Release();
+		}
+	}
+
+	VOID DirectX::AllTextureRelease() {
 		if (!pTexture.size()) {
 			return;
 		}
@@ -215,7 +221,7 @@ namespace DX {
 		std::unordered_map<std::string, LPDIRECT3DTEXTURE9>().swap(pTexture);
 	}
 
-	VOID DirectX::FontRelease() {
+	VOID DirectX::AllFontRelease() {
 		if (!pFont.size()) {
 			return;
 		}
@@ -229,18 +235,15 @@ namespace DX {
 		std::unordered_map<std::string, LPD3DXFONT>().swap(pFont);
 	}
 
-	VOID DirectX::LoadTexture(const CHAR* FilePath, std::string texture_name) {
+	VOID DirectX::LoadTexture(const CHAR* FilePath, std::string TextureName) {
 		D3DXCreateTextureFromFile
 		(pD3Device,
 			FilePath,
-			&pTexture[texture_name]);
+			&pTexture[TextureName]);
 	}
 
-	VOID DirectX::Draw(FLOAT x, FLOAT y, FLOAT width, FLOAT height,FLOAT degree,FLOAT zoom, BOOL is_Reverse, std::string texture_name) {
-		FLOAT TopLeftX = x + width / 2;
-		FLOAT TopLeftY = y + height / 2;
-
-		DrawObject(texture_name, SetVertex(TopLeftX, TopLeftY, width, height, zoom, is_Reverse, 0.0f, 0.0f, 1.0f, 1.0f), degree);
+	VOID DirectX::Draw(FLOAT x, FLOAT y, FLOAT width, FLOAT height,FLOAT degree,FLOAT zoom, BOOL is_Reverse, std::string TextureName) {
+		DrawObject(TextureName, SetVertex(x, y, width, height, zoom, is_Reverse, false, 0.0f, 0.0f, 1.0f, 1.0f), degree);
 	}
 
 	VOID DirectX::DrawEx(FLOAT x,
@@ -251,46 +254,49 @@ namespace DX {
 		FLOAT degree,
 		FLOAT zoom,
 		BOOL is_Reverse,
-		std::string texture_name,
+		std::string TextureName,
 		FLOAT tu,
 		FLOAT tv,
 		FLOAT tu_width,
 		FLOAT tv_height,
 		FLOAT rhw,
 		DWORD color){
-		FLOAT TopLeftX = x + width / 2;
-		FLOAT TopLeftY = y + height / 2;
-		DrawObject(texture_name, SetVertex(TopLeftX, TopLeftY, width, height, zoom, is_Reverse, tu, tv, tu_width, tv_height), degree);
+		DrawObject(TextureName, SetVertex(x, y, width, height, zoom, is_Reverse, false, tu, tv, tu_width, tv_height), degree);
 	}
 
-	VOID DirectX::DrawCenter(FLOAT x, FLOAT y, FLOAT width, FLOAT height, FLOAT degree, FLOAT zoom, BOOL is_Reverse, std::string texture_name) {
-		DrawObject(texture_name, SetVertex(x, y, width, height, zoom, is_Reverse, 0.0f, 0.0f, 1.0f, 1.0f), degree);
+	VOID DirectX::DrawCenter(FLOAT CenterX, FLOAT CenterY, FLOAT width, FLOAT height, FLOAT degree, FLOAT zoom, BOOL is_Reverse, std::string TextureName) {
+		FLOAT TopLeftX = CenterX - width / 2;
+		FLOAT TopLeftY = CenterY - height / 2;
+
+		DrawObject(TextureName, SetVertex(TopLeftX, TopLeftY, width, height, zoom, is_Reverse, true, 0.0f, 0.0f, 1.0f, 1.0f), degree);
 	}
 
 	VOID DirectX::DrawCenterEx(
-		FLOAT x,
-		FLOAT y,
+		FLOAT CenterX,
+		FLOAT CenterY,
 		FLOAT z,
 		FLOAT width,
 		FLOAT height,
 		FLOAT degree,
 		FLOAT zoom,
 		BOOL is_Reverse,
-		std::string texture_name,
+		std::string TextureName,
 		FLOAT tu,
 		FLOAT tv,
 		FLOAT tu_width,
 		FLOAT tv_height,
 		FLOAT rhw,
 		DWORD color){
-		DrawObject(texture_name, SetVertex(x, y, width, height, zoom, is_Reverse, tu, tv, tu_width, tv_height), degree);
+		FLOAT TopLeftX = CenterX - width / 2;
+		FLOAT TopLeftY = CenterY - height / 2;
+		DrawObject(TextureName, SetVertex(TopLeftX, TopLeftY, width, height, zoom, is_Reverse, true, tu, tv, tu_width, tv_height), degree);
 	}
 
-	VOID DirectX::DrawObject(std::string texture_name, CUSTOMVERTEX customvertex[], FLOAT degree) {
+	VOID DirectX::DrawObject(std::string TextureName, CUSTOMVERTEX customvertex[], FLOAT degree) {
 		CUSTOMVERTEX vertex[4];
 		Rotate(customvertex,vertex,degree);
 
-		pD3Device->SetTexture(0, pTexture[texture_name]);
+		pD3Device->SetTexture(0, pTexture[TextureName]);
 		pD3Device->DrawPrimitiveUP(D3DPT_TRIANGLEFAN, 2, vertex, sizeof(CUSTOMVERTEX));
 	}
 
@@ -317,18 +323,32 @@ namespace DX {
 		}
 	}
 
-	VOID DirectX::Scaling(FLOAT x, FLOAT y, FLOAT dw, FLOAT dh, CUSTOMVERTEX result[]) {
-		result[0].x = x - dw / 2;
-		result[1].x = x + dw / 2;
-		result[2].x = x + dw / 2;
-		result[3].x = x - dw / 2;
-		result[0].y = y - dh / 2;
-		result[1].y = y - dh / 2;
-		result[2].y = y + dh / 2;
-		result[3].y = y + dh / 2;
+	VOID DirectX::Scaling(FLOAT x, FLOAT y, FLOAT dw, FLOAT dh,BOOL is_Center, CUSTOMVERTEX result[]) {
+		if (is_Center) {
+			FLOAT CenterX = x + dw / 2;
+			FLOAT CenterY = y + dh / 2;
+			result[0].x = CenterX - dw / 2;
+			result[1].x = CenterX + dw / 2;
+			result[2].x = CenterX + dw / 2;
+			result[3].x = CenterX - dw / 2;
+			result[0].y = CenterY - dh / 2;
+			result[1].y = CenterY - dh / 2;
+			result[2].y = CenterY + dh / 2;
+			result[3].y = CenterY + dh / 2;
+		}
+		else {
+			result[0].x = x;
+			result[1].x = x + dw;
+			result[2].x = x + dw;
+			result[3].x = x;
+			result[0].y = y;
+			result[1].y = y;
+			result[2].y = y + dh;
+			result[3].y = y + dh;
+		}
 	}
 
-	DirectX::CUSTOMVERTEX* DirectX::SetVertex(FLOAT x, FLOAT y, FLOAT width, FLOAT height, FLOAT zoom, BOOL is_Reverse, FLOAT tu = 0.0f, FLOAT tv = 0.0f, FLOAT tw = 1.0f, FLOAT th = 1.0f) {
+	DirectX::CUSTOMVERTEX* DirectX::SetVertex(FLOAT x, FLOAT y, FLOAT width, FLOAT height, FLOAT zoom, BOOL is_Reverse, BOOL is_Center, FLOAT tu = 0.0f, FLOAT tv = 0.0f, FLOAT tw = 1.0f, FLOAT th = 1.0f) {
 		static CUSTOMVERTEX customvertex[4];
 		FLOAT zw, zh;
 		MakeVertex(customvertex, width, height, tu, tv, tw, th, is_Reverse);
@@ -337,7 +357,7 @@ namespace DX {
 		zw *= zoom;
 		zh *= zoom;
 
-		Scaling(x,y,zw,zh,customvertex);
+		Scaling(x, y, zw, zh, is_Center, customvertex);
 		return customvertex;
 	}
 
