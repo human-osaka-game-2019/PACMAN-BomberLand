@@ -89,9 +89,10 @@ namespace DX {
 		*@param [in] 元の頂点情報のy座標
 		*@param [in] 元の頂点情報の横幅
 		*@param [in] 元の頂点情報の高さ
+		*@param [in] 座標がセンターかどうか
 		*@param [out] 拡縮後の頂点情報
 		*/
-		VOID Scaling(FLOAT x, FLOAT y, FLOAT dw, FLOAT dh, CUSTOMVERTEX result[]);
+		VOID Scaling(FLOAT x, FLOAT y, FLOAT dw, FLOAT dh, BOOL is_Center, CUSTOMVERTEX result[]);
 
 		/*
 		*@brief オブジェクトの生成
@@ -99,7 +100,7 @@ namespace DX {
 		*@param 頂点情報
 		*@param 回転角度
 		*/
-		VOID DrawObject(std::string texture_name, CUSTOMVERTEX customvertex[], FLOAT degree);
+		VOID DrawObject(std::string TextureName, CUSTOMVERTEX customvertex[], FLOAT degree);
 
 		/*
 		*@brief 頂点情報の設定
@@ -109,12 +110,13 @@ namespace DX {
 		*@param 高さ
 		*@param 拡大率
 		*@param 反転するかどうか(trueで反転、falseで通常)
+		*@param 座標がセンターかどうか
 		*@param テクスチャUVの左上のx座標
 		*@param テクスチャUVの左上のy座標
 		*@param テクスチャUVの横幅
 		*@param テクスチャUVの高さ
 		*/
-		CUSTOMVERTEX* SetVertex(FLOAT x, FLOAT y, FLOAT width, FLOAT height, FLOAT zoom, BOOL is_Reverse, FLOAT tu, FLOAT tv, FLOAT tw, FLOAT th);
+		CUSTOMVERTEX* SetVertex(FLOAT x, FLOAT y, FLOAT width, FLOAT height, FLOAT zoom, BOOL is_Reverse, BOOL is_Center, FLOAT tu, FLOAT tv, FLOAT tw, FLOAT th);
 
 		/*
 		*@brief 頂点情報の生成
@@ -195,11 +197,17 @@ namespace DX {
 		VOID AllRelease();
 
 		/*
+		*@brief 一つのテクスチャを解放する
+		*@param テクスチャ名
+		*/
+		VOID TextureRelease(std::string TextureName);
+
+		/*
 		*@brief テクスチャの読み込み
 		*@param [in] ファイルの名前(char)
 		*@param [out] pTextureに入る配列の名前(char)
 		*/
-		VOID LoadTexture(const CHAR* file_name, std::string texture_name);
+		VOID LoadTexture(const CHAR* FileName, std::string TextureName);
 
 		/*
 		*@brief 描画する
@@ -212,7 +220,7 @@ namespace DX {
 		*@param 反転
 		*@param テクスチャ情報の名前
 		*/
-		VOID Draw(FLOAT x, FLOAT y, FLOAT width, FLOAT height, FLOAT degree, FLOAT zoom, BOOL is_Reverse, std::string texture_name);
+		VOID Draw(FLOAT x, FLOAT y, FLOAT width, FLOAT height, FLOAT degree, FLOAT zoom, BOOL is_Reverse, std::string TextureName);
 
 		/*
 		*@brief 描画する(座標は中央)
@@ -225,7 +233,7 @@ namespace DX {
 		*@param 反転
 		*@param テクスチャ情報の名前
 		*/
-		VOID DrawCenter(FLOAT x, FLOAT y, FLOAT width, FLOAT height, FLOAT degree, FLOAT zoom, BOOL is_Reverse, std::string texture_name);
+		VOID DrawCenter(FLOAT CenterX, FLOAT CenterY, FLOAT width, FLOAT height, FLOAT degree, FLOAT zoom, BOOL is_Reverse, std::string TextureName);
 
 		/*
 		*@brief 描画する(EX)
@@ -254,7 +262,7 @@ namespace DX {
 			FLOAT degree,
 			FLOAT zoom,
 			BOOL is_Reverse,
-			std::string texture_name,
+			std::string TextureName,
 			FLOAT tu,
 			FLOAT tv,
 			FLOAT tu_width,
@@ -281,22 +289,21 @@ namespace DX {
 		*@param 色
 		*/
 		VOID DrawCenterEx(
-			FLOAT x,
-			FLOAT y,
+			FLOAT CenterX,
+			FLOAT CenterY,
 			FLOAT z,
 			FLOAT width,
 			FLOAT height,
 			FLOAT degree,
 			FLOAT zoom,
 			BOOL is_Revese,
-			std::string texture_name,
+			std::string TextureName,
 			FLOAT tu,
 			FLOAT tv,
 			FLOAT tu_width,
 			FLOAT tv_height,
 			FLOAT rhw = 0.0f,
 			DWORD color = 0xFFFFFFFF);
-
 	};
 }
 

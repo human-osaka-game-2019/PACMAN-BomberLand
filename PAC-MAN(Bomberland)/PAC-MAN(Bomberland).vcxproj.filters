@@ -12,68 +12,74 @@
     <Filter Include="便利ファイル">
       <UniqueIdentifier>{eb4f6f08-66b4-458e-8295-372c97c68055}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DirectX">
+      <UniqueIdentifier>{b1974d9d-91c5-4ab3-9364-5c6183d8cb4d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\Title.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Vertex.h">
-      <Filter>便利ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Vec.h">
-      <Filter>便利ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Game.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="source\Main.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="source\Size.h">
+    <ClInclude Include="source\Bomb\Bomb.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Character\Character.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Game\Game.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GameClear\GameClear.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\GameOver\GameOver.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Infomation\Information.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Title\Title.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Utility\Size.h">
       <Filter>便利ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="source\Character.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="source\GameClear.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="source\GameOver.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="source\DirectX.h">
+    <ClInclude Include="source\Utility\Vec.h">
       <Filter>便利ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="source\Information.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="source\Utility\Vertex.h">
+      <Filter>便利ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="source\Bomb.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="source\DirectX\DirectX.h">
+      <Filter>DirectX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\Game.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="source\Main.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="source\Title.cpp">
+    <ClCompile Include="source\Bomb\Bomb.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="source\Character.cpp">
+    <ClCompile Include="source\Character\Character.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="source\GameClear.cpp">
+    <ClCompile Include="source\Game\Game.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="source\GameOver.cpp">
+    <ClCompile Include="source\GameClear\GameClear.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="source\Information.cpp">
+    <ClCompile Include="source\Title\Title.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="source\Bomb.cpp">
+    <ClCompile Include="source\Infomation\Information.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GameOver\GameOver.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Scene.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

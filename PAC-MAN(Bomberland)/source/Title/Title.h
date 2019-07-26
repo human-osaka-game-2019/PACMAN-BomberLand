@@ -1,7 +1,7 @@
 ﻿#ifndef TITLE_H_
 #define TITLE_H_
 
-#include "Main.h"
+#include "../Main.h"
 
 class TITLE {
 public:

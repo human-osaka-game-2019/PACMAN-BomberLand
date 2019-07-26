@@ -1,10 +1,9 @@
 ﻿#include "Main.h"
-#include "DirectX.h"
-#include "Title.h"
-#include "Information.h"
-#include "Game.h"
-#include "GameClear.h"
-#include "GameOver.h"
+#include "../source/Title/Title.h"
+#include "../source/Infomation/Information.h"
+#include "../source/Game/Game.h"
+#include "../source/GameClear/GameClear.h"
+#include "../source/GameOver/GameOver.h"
 
 #pragma comment(lib,"winmm.lib")
 
@@ -127,6 +126,8 @@ VOID Mainloop(MSG* msg,TITLE* title) {
 				case GameClear:
 					break;
 				case GameOver:
+					break;
+				default:MessageBox(0, "シーン設定がされていません", "", MB_OK);
 					break;
 				}
 

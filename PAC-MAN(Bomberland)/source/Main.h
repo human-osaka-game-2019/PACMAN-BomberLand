@@ -4,7 +4,7 @@
 #include <windows.h>
 #include <tchar.h>
 
-#include "DirectX.h"
+#include "../source/DirectX/DirectX.h"
 
 using DX::DirectX;
 

@@ -1,4 +1,4 @@
-﻿#include "Main.h"
+﻿#include "../Main.h"
 #include "Title.h"
 
 void TITLE::UpdateScene() {
@@ -15,7 +15,7 @@ void TITLE::UpdateScene() {
 }
 
 void TITLE::Loading() {
-	dx.LoadTexture("resource/Title_BG.jpg", "Title_BG");
+	dx.LoadTexture("resource/BackGround/Title_BG.jpg", "Title_BG");
 	step = MainStep;
 }
 
@@ -30,7 +30,7 @@ void TITLE::Control() {
 }
 
 void TITLE::Release() {
-	dx.pTexture["Title_BG"]->Release();
+	dx.TextureRelease("Title_BG");
 	g_scene = Information;
 }
 
