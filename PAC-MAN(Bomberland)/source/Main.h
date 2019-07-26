@@ -5,6 +5,7 @@
 #include <tchar.h>
 
 #include "../source/DirectX/DirectX.h"
+#include "../source/Scene.h"
 
 using DX::DirectX;
 
@@ -16,17 +17,7 @@ const INT window_width = 1920;
 //!ウィンドウの縦幅
 const INT window_height = 1080;
 
-enum SCENE {
-	Title,
-	Information,
-	Game,
-	GameClear,
-	GameOver
-};
-
-extern SCENE g_scene;
-
-SCENE SwitchScene(SCENE);
+extern SCENE_BASE::SCENE g_scene;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp);
 

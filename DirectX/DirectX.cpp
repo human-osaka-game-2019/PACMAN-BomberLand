@@ -150,7 +150,7 @@ namespace DX {
 			for (int i = 0; i < MAX_KEY; i++) {
 				if (curr_diks[i] & MASK_NUM) {
 					if (prev_diks[i] == OFF) {
-						KeyState[i] = PRESS;
+						KeyState[i] = PUSH;
 					}
 					else {
 						KeyState[i] = ON;
@@ -201,7 +201,7 @@ namespace DX {
 		}
 	}
 
-	VOID DirectX::TextureRelease(std::string TextureName) {
+	VOID DirectX::ReleaseTexture(std::string TextureName) {
 		if (pTexture[TextureName] != nullptr) {
 			pTexture[TextureName]->Release();
 		}

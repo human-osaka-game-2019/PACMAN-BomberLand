@@ -3,6 +3,15 @@
 
 class SCENE_BASE {
 public:
+
+	enum SCENE {
+		Title,
+		Information,
+		Game,
+		GameClear,
+		GameOver
+	};
+
 	SCENE_BASE();
 
 	virtual ~SCENE_BASE();

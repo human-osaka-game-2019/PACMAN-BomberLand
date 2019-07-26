@@ -2,6 +2,9 @@
 #define GAME_H_
 
 #include "../Scene.h"
+#include "../Utility/Vec.h"
+#include "../Character/Character.h"
+#include "../Bomb/Bomb.h"
 
 class GAME:public SCENE_BASE {
 public:
@@ -15,11 +18,21 @@ private:
 
 	STEP step = LoadStep;
 
+	const INT map_width, map_height;
+
+	struct MAP {
+		Vec2 MapPosition = { 0.0f,0.0f };
+	};
+
+	PLAYER player;
+
 	void Load();
-	void Draw();
 	void Control();
+	void Draw();
 	void Release();
+
+	void Move();
 
 };
 
-#endif
+#endif //GAME_H_

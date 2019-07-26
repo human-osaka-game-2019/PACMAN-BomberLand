@@ -30,7 +30,7 @@ void INFORMATION::Control() {
 }
 
 void INFORMATION::Release() {
-	dx.TextureRelease("Info_BG");
+	dx.ReleaseTexture("Info_BG");
 	g_scene = Game;
 }
 

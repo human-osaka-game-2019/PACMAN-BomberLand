@@ -155,7 +155,7 @@ namespace DX {
 
 		//! キーの状態
 		enum KEY_STATE {
-			PRESS,
+			PUSH,
 			RELEASE,
 			ON,
 			OFF
@@ -200,7 +200,7 @@ namespace DX {
 		*@brief 一つのテクスチャを解放する
 		*@param テクスチャ名
 		*/
-		VOID TextureRelease(std::string TextureName);
+		VOID ReleaseTexture(std::string TextureName);
 
 		/*
 		*@brief テクスチャの読み込み

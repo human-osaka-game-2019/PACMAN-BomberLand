@@ -18,8 +18,8 @@ private:
 	STEP step = LoadStep;
 
 	void Load();
-	void Draw();
 	void Control();
+	void Draw();
 	void Release();
 
 };

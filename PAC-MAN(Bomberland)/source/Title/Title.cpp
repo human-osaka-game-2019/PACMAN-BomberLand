@@ -11,6 +11,8 @@ void TITLE::UpdateScene() {
 		break;
 	case ReleaseStep:Release();
 		break;
+	default:Release();
+		break;
 	}
 }
 
@@ -19,18 +21,18 @@ void TITLE::Load() {
 	step = MainStep;
 }
 
-void TITLE::Draw() {
-	dx.Draw(0, 0, window_width, window_height, 0.0f, 1.0f, false, "Title_BG");
-}
-
 void TITLE::Control() {
-	if (dx.KeyState[DIK_SPACE] == dx.ON) {
+	if (dx.KeyState[DIK_SPACE] == dx.PUSH) {
 		step = ReleaseStep;
 	}
 }
 
+void TITLE::Draw() {
+	dx.Draw(0, 0, window_width, window_height, 0.0f, 1.0f, false, "Title_BG");
+}
+
 void TITLE::Release() {
-	dx.TextureRelease("Title_BG");
+	dx.ReleaseTexture("Title_BG");
 	g_scene = Information;
 }
 

@@ -14,29 +14,29 @@
 #endif
 
 DirectX dx;
-SCENE g_scene = Title;
+SCENE_BASE::SCENE g_scene = SCENE_BASE::SCENE::Title;
 
 /*
 *@brief メインループ
 *@param MSGのポインタ変数
 */
-VOID Mainloop(MSG* msg, TITLE* title);
+VOID Mainloop(MSG*, TITLE*,INFORMATION*, GAME*, GAMECLEAR*, GAMEOVER*);
 
 INT WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ PSTR lpCmdline, _In_ INT nCmdShow) {
 	const TCHAR API_NAME[] = _T("PAC-MAN ボンバーランド");
 	MSG msg;
 
 	TITLE title;
-	
+	INFORMATION information;
 	GAME game;
-
-	
+	GAMECLEAR gameclear;
+	GAMEOVER gameover;
 
 	HWND hWnd = GenerateWindow(&hInstance, API_NAME);
 
 	dx.InitDirectX(hWnd);
 
-	Mainloop(&msg,&title);
+	Mainloop(&msg, &title, &information, &game, &gameclear, &gameover);
 
 	dx.AllRelease();
 	return (int)msg.wParam;
@@ -96,7 +96,7 @@ HWND GenerateWindow(HINSTANCE* hInstance, const TCHAR* API_NAME) {
 	);
 }
 
-VOID Mainloop(MSG* msg,TITLE* title) {
+VOID Mainloop(MSG* msg,TITLE* title,INFORMATION* information, GAME* game,GAMECLEAR* gameclear, GAMEOVER* gameover) {
 	DWORD Prev = timeGetTime();
 	DWORD Curr;
 
@@ -117,15 +117,15 @@ VOID Mainloop(MSG* msg,TITLE* title) {
 
 				switch (g_scene)
 				{
-				case Title:title->UpdateScene();
+				case SCENE_BASE::SCENE::Title:title->UpdateScene();
 					break;
-				case Information:
+				case SCENE_BASE::SCENE::Information:information->UpdateScene();
 					break;
-				case Game:
+				case SCENE_BASE::SCENE::Game:game->UpdateScene();
 					break;
-				case GameClear:
+				case SCENE_BASE::SCENE::GameClear:gameclear->UpdateScene();
 					break;
-				case GameOver:
+				case SCENE_BASE::SCENE::GameOver:gameover->UpdateScene();
 					break;
 				default:MessageBox(0, "シーン設定がされていません", "", MB_OK);
 					break;
