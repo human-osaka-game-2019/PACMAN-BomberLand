@@ -148,6 +148,7 @@
     <ClInclude Include="source\Game\Game.h" />
     <ClInclude Include="source\Infomation\Information.h" />
     <ClInclude Include="source\Main.h" />
+    <ClInclude Include="source\Scene.h" />
     <ClInclude Include="source\Title\Title.h" />
     <ClInclude Include="source\Utility\Size.h" />
     <ClInclude Include="source\Utility\Vec.h" />

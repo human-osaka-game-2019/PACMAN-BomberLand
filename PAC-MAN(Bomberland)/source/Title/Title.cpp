@@ -3,7 +3,7 @@
 
 void TITLE::UpdateScene() {
 	switch (step) {
-	case LoadStep:Loading();
+	case LoadStep:Load();
 		break;
 	case MainStep:
 		Control();
@@ -14,7 +14,7 @@ void TITLE::UpdateScene() {
 	}
 }
 
-void TITLE::Loading() {
+void TITLE::Load() {
 	dx.LoadTexture("resource/BackGround/Title_BG.jpg", "Title_BG");
 	step = MainStep;
 }

@@ -1,9 +1,9 @@
 ﻿#ifndef TITLE_H_
 #define TITLE_H_
 
-#include "../Main.h"
+#include "../Scene.h"
 
-class TITLE {
+class TITLE :public SCENE_BASE {
 public:
 
 	TITLE();
@@ -14,19 +14,13 @@ public:
 
 
 private:
-	enum STEP {
-		LoadStep,
-		MainStep,
-		ReleaseStep
-	};
-
-	bool is_start = true;
 
 	STEP step = LoadStep;
-	void Loading();
-	void Release();
+
+	void Load();
 	void Draw();
 	void Control();
+	void Release();
 
 };
 

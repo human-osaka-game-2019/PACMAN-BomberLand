@@ -5,7 +5,7 @@ class SCENE_BASE {
 public:
 	SCENE_BASE();
 
-	~SCENE_BASE();
+	virtual ~SCENE_BASE();
 
 protected:
 	enum STEP {
@@ -13,8 +13,12 @@ protected:
 		MainStep,
 		ReleaseStep
 	};
-	STEP step = LoadStep;
-private:
+
+	virtual void UpdateScene() = 0;
+	virtual void Load() = 0;
+	virtual void Draw() = 0;
+	virtual void Control() = 0;
+	virtual void Release() = 0;
 
 };
 

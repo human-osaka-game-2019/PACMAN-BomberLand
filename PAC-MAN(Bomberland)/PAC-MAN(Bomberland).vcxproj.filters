@@ -53,6 +53,9 @@
     <ClInclude Include="source\DirectX\DirectX.h">
       <Filter>DirectX</Filter>
     </ClInclude>
+    <ClInclude Include="source\Scene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Main.cpp">
