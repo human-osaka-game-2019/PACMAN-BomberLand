@@ -18,7 +18,9 @@ private:
 
 	STEP step = LoadStep;
 
-	const INT map_width, map_height;
+	const int map_width, map_height;
+
+	int frame;
 
 	struct MAP {
 		Vec2 MapPosition = { 0.0f,0.0f };
@@ -32,6 +34,7 @@ private:
 	void Release();
 
 	void Move();
+	int TimeToFrame(float second);
 
 };
 

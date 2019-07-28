@@ -6,18 +6,30 @@
 
 class PLAYER {
 public:
+	enum DIRECTION {
+		RIGHT = 0,
+		DOWN = 90,
+		LEFT = 180,
+		UP = 270
+	};
+
 	bool is_dead;
+
 	PLAYER();
 	~PLAYER();
+
 	Vec2 GetPos();
 	void SetPos(float x, float y);
 	Size GetSize();
 	void SetSize(float width, float height);
 	float GetSpeed();
+	void SetDirection(DIRECTION direction);
+	void Animation(int frame,int pages,std::string TextureName);
 private:
 	Vec2 pos;
 	Size size;
-	const float speed = 20.0f;
+	DIRECTION direction;
+	const float speed = 7.5f;
 };
 
 class ENEMY_BASE {

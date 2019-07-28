@@ -24,6 +24,7 @@ VOID Mainloop(MSG*, TITLE*,INFORMATION*, GAME*, GAMECLEAR*, GAMEOVER*);
 
 INT WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ PSTR lpCmdline, _In_ INT nCmdShow) {
 	const TCHAR API_NAME[] = _T("PAC-MAN ボンバーランド");
+
 	MSG msg;
 
 	TITLE title;
