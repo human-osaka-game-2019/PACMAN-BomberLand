@@ -238,8 +238,8 @@ namespace DX {
 	VOID DirectX::LoadTexture(const CHAR* FilePath, std::string TextureName) {
 		D3DXCreateTextureFromFile
 		(pD3Device,
-			FilePath,
-			&pTexture[TextureName]);
+		FilePath,
+		&pTexture[TextureName]);
 	}
 
 	VOID DirectX::Draw(FLOAT x, FLOAT y, FLOAT width, FLOAT height,FLOAT degree,FLOAT zoom, BOOL is_Reverse, std::string TextureName) {

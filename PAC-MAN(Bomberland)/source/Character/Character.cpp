@@ -39,9 +39,28 @@ void PLAYER::Animation(int frame,int pages, std::string TextureName) {
 	}
 }
 
+void PLAYER::Move() {
+	if (dx.KeyState[DIK_UP] == dx.ON) {
+		this->SetPos(this->GetPos().X, this->GetPos().Y - this->GetSpeed());
+		this->SetDirection(this->UP);
+	}
+	if (dx.KeyState[DIK_DOWN] == dx.ON) {
+		this->SetPos(this->GetPos().X, this->GetPos().Y + this->GetSpeed());
+		this->SetDirection(this->DOWN);
+	}
+	if (dx.KeyState[DIK_RIGHT] == dx.ON) {
+		this->SetPos(this->GetPos().X + this->GetSpeed(), this->GetPos().Y);
+		this->SetDirection(this->RIGHT);
+	}
+	if (dx.KeyState[DIK_LEFT] == dx.ON) {
+		this->SetPos(this->GetPos().X - this->GetSpeed(), this->GetPos().Y);
+		this->SetDirection(this->LEFT);
+	}
+}
+
 PLAYER::PLAYER():is_dead(false),direction(RIGHT) {
 	SetPos(50, 50);
-	SetSize(60, 60);
+	SetSize(40, 40);
 }
 
 PLAYER::~PLAYER() {

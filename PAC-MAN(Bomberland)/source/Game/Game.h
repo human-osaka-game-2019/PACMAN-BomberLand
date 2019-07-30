@@ -26,15 +26,15 @@ private:
 		Vec2 MapPosition = { 0.0f,0.0f };
 	};
 
+	const int width_margin;
+	const int height_margin;
+
 	PLAYER player;
 
 	void Load();
 	void Control();
 	void Draw();
 	void Release();
-
-	void Move();
-	int TimeToFrame(float second);
 
 };
 

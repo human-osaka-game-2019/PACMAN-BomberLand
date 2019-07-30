@@ -25,6 +25,8 @@ public:
 	float GetSpeed();
 	void SetDirection(DIRECTION direction);
 	void Animation(int frame,int pages,std::string TextureName);
+	void Move();
+
 private:
 	Vec2 pos;
 	Size size;

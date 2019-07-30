@@ -25,7 +25,8 @@ void GAME::Load() {
 }
 
 void GAME::Control() {
-	Move();
+
+	player.Move();
 
 #ifdef _DEBUG
 	if (dx.KeyState[DIK_SPACE] == dx.PUSH) {
@@ -35,20 +36,20 @@ void GAME::Control() {
 }
 
 void GAME::Draw() {
-	MAP map[18][32];
+	MAP map[18][34];
 	for (int row = 0; row < 18; row++) {
-		for (int col = 0; col < 32; col++) {
+		for (int col = 0; col < 34; col++) {
 			if (col % 2 == 0 || row % 2 == 0) {
-				dx.Draw(map_width * col, map_height * row, map_width, map_height, 0.0f, 1.0f, false, "wall");
+				dx.Draw(map_width * col + width_margin / 2, map_height * row + height_margin / 2, map_width, map_height, 0.0f, 1.0f, false, "wall");
 			}
 			else {
-				dx.Draw(map_width * col, map_height * row, map_width, map_height, 0.0f, 1.0f, false, "map_BG");
+				dx.Draw(map_width * col + width_margin / 2, map_height * row + height_margin / 2, map_width, map_height, 0.0f, 1.0f, false, "map_BG");
 			}
 		}
 	}
 	frame++;
-	player.Animation(frame, "Player");
-	if (frame > 9) {
+	player.Animation(frame,3,"Player");
+	if (frame == 12) {
 		frame = 0;
 	}
 
@@ -59,30 +60,7 @@ void GAME::Release() {
 	dx.ReleaseTexture("Player");
 }
 
-void GAME::Move() {
-	if (dx.KeyState[DIK_UP] == dx.ON) {
-		player.SetPos(player.GetPos().X, player.GetPos().Y - player.GetSpeed());
-		player.SetDirection(player.UP);
-	}
-	if (dx.KeyState[DIK_DOWN] == dx.ON) {
-		player.SetPos(player.GetPos().X, player.GetPos().Y + player.GetSpeed());
-		player.SetDirection(player.DOWN);
-	}
-	if (dx.KeyState[DIK_RIGHT] == dx.ON) {
-		player.SetPos(player.GetPos().X + player.GetSpeed(), player.GetPos().Y);
-		player.SetDirection(player.RIGHT);
-	}
-	if (dx.KeyState[DIK_LEFT] == dx.ON) {
-		player.SetPos(player.GetPos().X - player.GetSpeed(), player.GetPos().Y);
-		player.SetDirection(player.LEFT);
-	}
-}
-
-int GAME::TimeToFrame(float second) {
-	return second * 60;
-}
-
-GAME::GAME():map_width(60),map_height(60),frame(0){
+GAME::GAME():map_width(50),map_height(50),frame(0),width_margin(window_width - 1700),height_margin(window_height - 900){
 
 }
 
