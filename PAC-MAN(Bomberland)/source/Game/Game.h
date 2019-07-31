@@ -22,16 +22,22 @@ private:
 
 	const float LiveCount_width, LiveCount_height;
 
-	int frame;
-
 	struct MAP {
 		Vec2 MapPosition = { 0.0f,0.0f };
 	};
 
 	const int width_margin;
 	const int height_margin;
+	bool is_clear;
+
+	Vec2 cookie_pos = {500,500};
+	Size cookie_size = {50,50};
+	bool cookie_is_dead;
+	int cookie_r = cookie_size.Width / 2;
 
 	PLAYER player;
+	COOKIE cookie;
+	int player_r = player.GetSize().Width / 2;
 
 	void Load();
 	void Control();

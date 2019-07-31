@@ -1,6 +1,10 @@
 ﻿#include "../Main.h"
 #include "Character.h"
 
+Anime::Anime():frame(0),change_frame(4),is_loop(true),UV(0.0f,0.0f) {
+
+}
+
 Vec2 PLAYER::GetPos() {
 	return this->pos;
 }
@@ -32,6 +36,10 @@ float PLAYER::GetSpeed() {
 	return this->speed;
 }
 
+void PLAYER::SetSpeed(float speed) {
+	this->speed = speed;
+}
+
 void PLAYER::SetDirection(PLAYER::DIRECTION direction) {
 	this->direction = direction;
 }
@@ -44,11 +52,16 @@ void PLAYER::SetLiveCount(int LiveCount) {
 	this->LiveCount = LiveCount;
 }
 
-void PLAYER::Animation(int frame,int pages) {
-	if (frame > 4) {
-		dx.DrawEx(pos.X, pos.Y, 0.0f, size.Width, size.Height, (float)direction, 1.0f, false, "Player", 0.0f, 0.0f, 0.25f, 0.25f);
+void PLAYER::Animation(std::string TextureName) {
+	if (anime.frame > anime.change_frame) {
+		anime.UV.X += Texture_WU;
+		if (anime.UV.X >= Texture_WU * 3) {
+			anime.UV.X == 0.0f;
+		}
+		anime.frame = 0;
 	}
-	frame = 0;
+	dx.DrawEx(pos.X, pos.Y, 0, size.Width, size.Height, direction, 1.0f, false, TextureName, anime.UV.X, anime.UV.Y, Texture_WU, Texture_HV);
+	anime.frame++;
 }
 
 void PLAYER::Move() {
@@ -83,15 +96,27 @@ Vec2 ENEMY_BASE::GetPos() {
 	return this->pos;
 }
 
+Vec2 COOKIE::GetPos() {
+	return this->CenterPos;
+}
+
 void ENEMY_BASE::SetPos(float x, float y) {
 	this->pos.X = x;
 	this->pos.Y = y;
+}
+
+void COOKIE::SetPos(float x,float y) {
+	this->CenterPos.X = x;
+	this->CenterPos.Y = y;
 }
 
 Size ENEMY_BASE::GetSize() {
 	return this->size;
 }
 
+COOKIE::COOKIE():size(30,30),is_dead(false) {
+
+}
 void ENEMY_BASE::SetSize(float width, float height) {
 	this->size.Width = width;
 	this->size.Height = height;

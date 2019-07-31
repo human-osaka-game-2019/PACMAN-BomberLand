@@ -1,10 +1,17 @@
-ï»¿#ifndef CHARACTER_H_
+?¿#ifndef CHARACTER_H_
 #define CHARACTER_H_
-
-#include <vector>
 
 #include "../Utility/Vec.h"
 #include "../Utility/Size.h"
+
+struct Anime {
+	int frame;
+	const int change_frame;
+	bool is_loop;
+	Vec2 UV;
+
+	Anime();
+};
 
 class PLAYER {
 public:
@@ -15,38 +22,42 @@ public:
 		UP = 270
 	};
 
+	Anime anime;
+	float Texture_U = 0.0f;
+	float Texture_V = 0.0f;
+	const float Texture_WU = 32.0f / 1024.0f;
+	const float Texture_HV = 32.0f / 1024.0f;
+
 	PLAYER();
 	~PLAYER();
 
 	Vec2 GetPos();
 	void SetPos(float x, float y);
-	Vec2 GetCenterPos();
-	void SetCenterPos(float CenterX, float CenterY);
 	Size GetSize();
 	void SetSize(float width, float height);
 	float GetSpeed();
+	void SetSpeed(float speed);
 	void SetDirection(DIRECTION direction);
-	int  GetLiveCount();
+	int GetLiveCount();
 	void SetLiveCount(int LiveCount);
-	void Animation(int frame,int pages);
+	void Animation(std::string TextureName);
 	void Move();
 
 private:
 	Vec2 pos;
-	Vec2 CenterPos = {pos.X + size.Width / 2, pos.Y + size.Height / 2};
 	Size size;
 	DIRECTION direction;
 	int LiveCount;
-	std::vector<int> AnimeFrame;
-	const float speed = 7.5f;
+	float speed = 7.5f;
 };
 
 class ENEMY_BASE {
 public:
 	Vec2 GetPos();
-	void SetPos(float x, float y);
+	void SetPos();
 	Size GetSize();
-	void SetSize(float width, float height);
+	void SetSize();
+
 protected:
 	Vec2 pos;
 	Size size;
@@ -68,6 +79,20 @@ class ENEMY_YELLOW:public ENEMY_BASE {
 
 class ENEMY_RED:public ENEMY_BASE {
 
+};
+
+class COOKIE {
+public:
+	bool is_dead;
+
+	Vec2 GetPos();
+	void SetPos(float x, float y);
+
+	COOKIE();
+
+private:
+	Vec2 CenterPos;
+	const Size size;
 };
 
 #endif //CHARACTER_H_
