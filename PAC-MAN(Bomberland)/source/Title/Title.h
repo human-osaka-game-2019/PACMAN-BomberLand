@@ -2,6 +2,7 @@
 #define TITLE_H_
 
 #include "../Scene.h"
+#include "../Ui/Ui.h"
 
 class TITLE :public SCENE_BASE {
 public:
@@ -16,6 +17,8 @@ public:
 private:
 
 	STEP step = LoadStep;
+
+	UI start_ui;
 
 	void Load();
 	void Control();

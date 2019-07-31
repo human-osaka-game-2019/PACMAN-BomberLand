@@ -150,6 +150,7 @@
     <ClInclude Include="source\Main.h" />
     <ClInclude Include="source\Scene.h" />
     <ClInclude Include="source\Title\Title.h" />
+    <ClInclude Include="source\Ui\Ui.h" />
     <ClInclude Include="source\Utility\Size.h" />
     <ClInclude Include="source\Utility\Vec.h" />
     <ClInclude Include="source\Utility\Vertex.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="source\Main.cpp" />
     <ClCompile Include="source\Scene.cpp" />
     <ClCompile Include="source\Title\Title.cpp" />
+    <ClCompile Include="source\Ui\Ui.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

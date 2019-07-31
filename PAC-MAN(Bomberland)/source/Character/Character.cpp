@@ -2,7 +2,7 @@
 #include "Character.h"
 
 Vec2 PLAYER::GetPos() {
-	return pos;
+	return this->pos;
 }
 
 void PLAYER::SetPos(float x, float y) {
@@ -10,8 +10,17 @@ void PLAYER::SetPos(float x, float y) {
 	pos.Y = y;
 }
 
+Vec2 PLAYER::GetCenterPos() {
+	return this->CenterPos;
+}
+
+void PLAYER::SetCenterPos(float CenterX, float CenterY) {
+	this->CenterPos.X = CenterX;
+	this->CenterPos.Y = CenterY;
+}
+
 Size PLAYER::GetSize() {
-	return size;
+	return this->size;
 }
 
 void PLAYER::SetSize(float width, float height) {
@@ -20,23 +29,26 @@ void PLAYER::SetSize(float width, float height) {
 }
 
 float PLAYER::GetSpeed() {
-	return speed;
+	return this->speed;
 }
 
 void PLAYER::SetDirection(PLAYER::DIRECTION direction) {
 	this->direction = direction;
 }
 
-void PLAYER::Animation(int frame,int pages, std::string TextureName) {
-	if (frame < 3) {
-		dx.DrawEx(pos.X, pos.Y, 0, size.Width, size.Height, direction, 1.0f, false, TextureName, 0.0f, 0.0f, 0.25f, 0.25f);
+int PLAYER::GetLiveCount() {
+	return this->LiveCount;
+}
+
+void PLAYER::SetLiveCount(int LiveCount) {
+	this->LiveCount = LiveCount;
+}
+
+void PLAYER::Animation(int frame,int pages) {
+	if (frame > 4) {
+		dx.DrawEx(pos.X, pos.Y, 0.0f, size.Width, size.Height, (float)direction, 1.0f, false, "Player", 0.0f, 0.0f, 0.25f, 0.25f);
 	}
-	else if (frame >= 3 && frame < 6) {
-		dx.DrawEx(pos.X, pos.Y, 0, size.Width, size.Height, direction, 1.0f, false, TextureName, 0.25f, 0.0f, 0.25f, 0.25f);
-	}
-	else if (frame >= 6 && frame < 9) {
-		dx.DrawEx(pos.X, pos.Y, 0, size.Width, size.Height, direction, 1.0f, false, TextureName, 0.5f, 0.0f, 0.25f, 0.25f);
-	}
+	frame = 0;
 }
 
 void PLAYER::Move() {
@@ -58,11 +70,29 @@ void PLAYER::Move() {
 	}
 }
 
-PLAYER::PLAYER():is_dead(false),direction(RIGHT) {
+PLAYER::PLAYER():LiveCount(3),direction(RIGHT),CenterPos(pos.X + size.Width / 2, pos.Y + size.Height / 2) {
 	SetPos(50, 50);
 	SetSize(40, 40);
 }
 
 PLAYER::~PLAYER() {
 
+}
+
+Vec2 ENEMY_BASE::GetPos() {
+	return this->pos;
+}
+
+void ENEMY_BASE::SetPos(float x, float y) {
+	this->pos.X = x;
+	this->pos.Y = y;
+}
+
+Size ENEMY_BASE::GetSize() {
+	return this->size;
+}
+
+void ENEMY_BASE::SetSize(float width, float height) {
+	this->size.Width = width;
+	this->size.Height = height;
 }
