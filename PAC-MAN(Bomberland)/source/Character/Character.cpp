@@ -1,6 +1,10 @@
 ﻿#include "../Main.h"
 #include "Character.h"
 
+Anime::Anime():frame(0),change_frame(4),is_loop(true),UV(0.0f,0.0f) {
+
+}
+
 Vec2 PLAYER::GetPos() {
 	return pos;
 }
@@ -23,20 +27,32 @@ float PLAYER::GetSpeed() {
 	return speed;
 }
 
+void PLAYER::SetSpeed(float speed) {
+	this->speed = speed;
+}
+
 void PLAYER::SetDirection(PLAYER::DIRECTION direction) {
 	this->direction = direction;
 }
 
-void PLAYER::Animation(int frame,int pages, std::string TextureName) {
-	if (frame < 3) {
-		dx.DrawEx(pos.X, pos.Y, 0, size.Width, size.Height, direction, 1.0f, false, TextureName, 0.0f, 0.0f, 0.25f, 0.25f);
+int PLAYER::GetLiveCount() {
+	return this->LiveCount;
+}
+
+void PLAYER::SetLiveCount(int LiveCount) {
+	this->LiveCount = LiveCount;
+}
+
+void PLAYER::Animation(std::string TextureName) {
+	if (anime.frame > anime.change_frame) {
+		anime.UV.X += Texture_WU;
+		if (anime.UV.X >= Texture_WU * 3) {
+			anime.UV.X == 0.0f;
+		}
+		anime.frame = 0;
 	}
-	else if (frame >= 3 && frame < 6) {
-		dx.DrawEx(pos.X, pos.Y, 0, size.Width, size.Height, direction, 1.0f, false, TextureName, 0.25f, 0.0f, 0.25f, 0.25f);
-	}
-	else if (frame >= 6 && frame < 9) {
-		dx.DrawEx(pos.X, pos.Y, 0, size.Width, size.Height, direction, 1.0f, false, TextureName, 0.5f, 0.0f, 0.25f, 0.25f);
-	}
+	dx.DrawEx(pos.X, pos.Y, 0, size.Width, size.Height, direction, 1.0f, false, TextureName, anime.UV.X, anime.UV.Y, Texture_WU, Texture_HV);
+	anime.frame++;
 }
 
 void PLAYER::Move() {
@@ -58,11 +74,24 @@ void PLAYER::Move() {
 	}
 }
 
-PLAYER::PLAYER():is_dead(false),direction(RIGHT) {
-	SetPos(50, 50);
+PLAYER::PLAYER():LiveCount(3),direction(RIGHT){
+	SetPos(160, 140);
 	SetSize(40, 40);
 }
 
 PLAYER::~PLAYER() {
+
+}
+
+Vec2 COOKIE::GetPos() {
+	return this->CenterPos;
+}
+
+void COOKIE::SetPos(float x,float y) {
+	this->CenterPos.X = x;
+	this->CenterPos.Y = y;
+}
+
+COOKIE::COOKIE():size(30,30),is_dead(false) {
 
 }
