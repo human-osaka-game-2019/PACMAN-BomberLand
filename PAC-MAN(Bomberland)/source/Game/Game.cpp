@@ -1,4 +1,4 @@
-?¿#include "../Main.h"
+#include "../Main.h"
 #include "Game.h"
 
 void GAME::UpdateScene() {
@@ -22,6 +22,7 @@ void GAME::Load() {
 	dx.LoadTexture("resource/Map/wall.png", "wall");
 	dx.LoadTexture("resource/Character/Player/Player.png", "Player");
 	dx.LoadTexture("resource/Map/Cookie.png", "Cookie");
+
 	step = MainStep;
 }
 
@@ -55,11 +56,9 @@ void GAME::Draw() {
 			}
 		}
 	}
+
 	DrawLiveCount();
-	frame++;
-	player.Animation(frame,3);
-	if (frame == 12) {
-		frame = 0;
+
 
 	player.Animation("Player");
 
@@ -71,8 +70,6 @@ void GAME::Draw() {
 		cookie_is_dead = true;
 	}
 
-	
-
 }
 
 void GAME::Release() {
@@ -82,9 +79,17 @@ void GAME::Release() {
 	dx.ReleaseTexture("wall");
 	dx.ReleaseTexture("map_BG");
 
+	if (is_clear) {
+		g_scene = GameClear;
+	}
+	else {
+		g_scene = GameOver;
+	}
+}
+
 void GAME::DrawLiveCount() {
 	for (int i = 0; i < player.GetLiveCount(); i++) {
-		dx.DrawEx(1200 + (i * LiveCount_width), 980 + (i * LiveCount_height), 0.0f, LiveCount_width, LiveCount_height, 0.0f, 1.0f, false, "Player", 0.0f, 0.0f, 0.25f, 0.25f);
+		dx.DrawEx(1200 + (i * LiveCount_width), 980, 0.0f, LiveCount_width, LiveCount_height, 0.0f, 1.0f, false, "Player", 0.0f, 0.0f, 0.25f, 0.25f);
 	}
 }
 
@@ -101,15 +106,9 @@ void GAME::JudgeWall() {
 	if (player.GetPos().Y > window_height - height_margin / 2 - player.GetSize().Height) {
 		player.SetPos(player.GetPos().X, window_height - height_margin / 2 - player.GetSize().Height);
 	}
-	if (is_clear) {
-		g_scene = GameClear;
-	}
-	else {
-		g_scene = GameOver;
-	}
 }
 
-GAME::GAME():map_width(50),map_height(50),width_margin(window_width - 1600),height_margin(window_height - 800),cookie_is_dead(false), is_clear(false){
+GAME::GAME():map_width(50),map_height(50),LiveCount_width(50),LiveCount_height(50),width_margin(window_width - 1600),height_margin(window_height - 800),cookie_is_dead(false), is_clear(false){
 
 }
 

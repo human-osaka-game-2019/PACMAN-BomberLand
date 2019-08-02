@@ -1,4 +1,4 @@
-?¿#ifndef CHARACTER_H_
+#ifndef CHARACTER_H_
 #define CHARACTER_H_
 
 #include "../Utility/Vec.h"
@@ -9,6 +9,8 @@ struct Anime {
 	const int change_frame;
 	bool is_loop;
 	Vec2 UV;
+
+	//void Animation();
 
 	Anime();
 };
@@ -25,14 +27,16 @@ public:
 	Anime anime;
 	float Texture_U = 0.0f;
 	float Texture_V = 0.0f;
-	const float Texture_WU = 32.0f / 1024.0f;
-	const float Texture_HV = 32.0f / 1024.0f;
+	const float Texture_WU = 64.0f / 1024.0f;
+	const float Texture_HV = 64.0f / 1024.0f;
 
 	PLAYER();
 	~PLAYER();
 
 	Vec2 GetPos();
 	void SetPos(float x, float y);
+	Vec2 GetCenterPos();
+	void SetCenterPos(float x, float y);
 	Size GetSize();
 	void SetSize(float width, float height);
 	float GetSpeed();
@@ -45,6 +49,7 @@ public:
 
 private:
 	Vec2 pos;
+	Vec2 CenterPos;
 	Size size;
 	DIRECTION direction;
 	int LiveCount;
@@ -53,10 +58,18 @@ private:
 
 class ENEMY_BASE {
 public:
+
+	enum DIRECTION {
+		UP,
+		DOWN,
+		RIGHT,
+		LEFT
+	};
+
 	Vec2 GetPos();
-	void SetPos();
+	void SetPos(float x, float y);
 	Size GetSize();
-	void SetSize();
+	void SetSize(float width, float height);
 
 protected:
 	Vec2 pos;

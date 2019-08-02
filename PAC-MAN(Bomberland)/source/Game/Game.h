@@ -19,7 +19,6 @@ private:
 	STEP step = LoadStep;
 
 	const float map_width, map_height;
-
 	const float LiveCount_width, LiveCount_height;
 
 	struct MAP {
