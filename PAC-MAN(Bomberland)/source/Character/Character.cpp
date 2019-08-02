@@ -83,9 +83,10 @@ void PLAYER::Move() {
 	}
 }
 
-PLAYER::PLAYER():LiveCount(3),direction(RIGHT),CenterPos(pos.X + size.Width / 2, pos.Y + size.Height / 2) {
+PLAYER::PLAYER():radius(20),LiveCount(3),direction(RIGHT){
 	SetPos(50, 50);
 	SetSize(40, 40);
+	SetCenterPos(pos.X + size.Width / 2, pos.Y + size.Height / 2);
 }
 
 PLAYER::~PLAYER() {
@@ -110,7 +111,7 @@ void ENEMY_BASE::SetSize(float width, float height) {
 	this->size.Height = height;
 }
 
-COOKIE::COOKIE():size(30,30),is_dead(false) {
+COOKIE::COOKIE():is_dead(false),size(30,30),radius(size.Width / 2){
 
 }
 

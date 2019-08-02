@@ -35,7 +35,7 @@ private:
 	int cookie_r = cookie_size.Width / 2;
 
 	PLAYER player;
-	COOKIE cookie;
+	COOKIE cookie[512];
 	int player_r = player.GetSize().Width / 2;
 
 	void Load();

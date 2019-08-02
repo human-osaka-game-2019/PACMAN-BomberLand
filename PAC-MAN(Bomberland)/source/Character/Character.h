@@ -30,6 +30,8 @@ public:
 	const float Texture_WU = 64.0f / 1024.0f;
 	const float Texture_HV = 64.0f / 1024.0f;
 
+	const float radius;
+
 	PLAYER();
 	~PLAYER();
 
@@ -97,6 +99,7 @@ class ENEMY_RED:public ENEMY_BASE {
 class COOKIE {
 public:
 	bool is_dead;
+	const float radius;
 
 	Vec2 GetPos();
 	void SetPos(float x, float y);
