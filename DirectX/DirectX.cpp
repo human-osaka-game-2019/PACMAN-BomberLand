@@ -8,7 +8,7 @@
 
 namespace DX {
 
-	DirectX::DirectX() {
+	DirectX::DirectX():WinMode(true),DeviceLost(false) {
 
 	}
 
@@ -16,9 +16,9 @@ namespace DX {
 		AllRelease();
 	}
 
-	HRESULT DirectX::InitDirectX(HWND hWnd)
+	HRESULT DirectX::InitDirectX(HWND hWnd, FLOAT Window_width, FLOAT Window_height)
 	{
-		if (FAILED(InitD3Device(hWnd))) {
+		if (FAILED(InitD3Device(hWnd, Window_width, Window_height))) {
 			return E_FAIL;
 		}
 
@@ -35,7 +35,6 @@ namespace DX {
 
 		SetRenderState();
 		SetTextureStage();
-		SetSampler();
 
 		pD3Device->SetFVF(D3DFVF_XYZRHW | D3DFVF_DIFFUSE |D3DFVF_TEX1);
 
@@ -62,13 +61,13 @@ namespace DX {
 		pD3Device->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
 	}
 
-	HRESULT DirectX::InitD3Device(HWND hWnd) {
+	HRESULT DirectX::InitD3Device(HWND hWnd, FLOAT Width, FLOAT Height) {
 		if (NULL == (pDirect3D = Direct3DCreate9(D3D_SDK_VERSION))) {
 			MessageBox(0, _T("Direct3Dの作成に失敗しました"), _T(""), MB_OK);
 			return E_FAIL;
 		}
 
-		InitPresentParameters(hWnd);
+		InitPresentParameters(hWnd, Width, Height);
 
 		if (FAILED(pDirect3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
 			D3DCREATE_MIXED_VERTEXPROCESSING,
@@ -117,24 +116,48 @@ namespace DX {
 		return S_OK;
 	}
 
-	VOID DirectX::InitPresentParameters(HWND hWnd)
+	VOID DirectX::InitPresentParameters(HWND hWnd, FLOAT WIDTH, FLOAT HEIGHT)
 	{
 		ZeroMemory(&D3dPresentParameters, sizeof(D3dPresentParameters));
 
-		D3dPresentParameters.BackBufferWidth = 0;
-		D3dPresentParameters.BackBufferHeight = 0;
-		D3dPresentParameters.BackBufferFormat = D3DFMT_UNKNOWN;
-		D3dPresentParameters.BackBufferCount = 1;
-		D3dPresentParameters.MultiSampleType = D3DMULTISAMPLE_NONE;
-		D3dPresentParameters.MultiSampleQuality = 0;
-		D3dPresentParameters.hDeviceWindow = hWnd;
-		D3dPresentParameters.EnableAutoDepthStencil = FALSE;
-		D3dPresentParameters.AutoDepthStencilFormat = D3DFMT_A1R5G5B5;
-		D3dPresentParameters.Flags = 0;
-		D3dPresentParameters.FullScreen_RefreshRateInHz = 0;
-		D3dPresentParameters.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
-		D3dPresentParameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
-		D3dPresentParameters.Windowed = TRUE;
+		ZeroMemory(&D3dppWin, sizeof(D3DPRESENT_PARAMETERS));
+		D3dppWin.BackBufferWidth = 0;
+		D3dppWin.BackBufferHeight = 0;
+		D3dppWin.BackBufferFormat = D3DFMT_UNKNOWN;
+		D3dppWin.BackBufferCount = 1;
+		D3dppWin.MultiSampleType = D3DMULTISAMPLE_NONE;
+		D3dppWin.MultiSampleQuality = 0;
+		D3dppWin.SwapEffect = D3DSWAPEFFECT_DISCARD;
+		D3dppWin.hDeviceWindow = hWnd;
+		D3dppWin.EnableAutoDepthStencil = FALSE;
+		D3dppWin.Windowed = TRUE;
+		D3dppWin.AutoDepthStencilFormat = D3DFMT_A1R5G5B5;
+		D3dppWin.Flags = 0;
+		D3dppWin.FullScreen_RefreshRateInHz = 0;
+		D3dppWin.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+
+		ZeroMemory(&D3dppFull, sizeof(D3DPRESENT_PARAMETERS));
+		D3dppFull.BackBufferWidth = (UINT)WIDTH;
+		D3dppFull.BackBufferHeight = (UINT)HEIGHT;
+		D3dppFull.BackBufferFormat = D3DFMT_X8R8G8B8;
+		D3dppFull.BackBufferCount = 1;
+		D3dppFull.MultiSampleType = D3DMULTISAMPLE_NONE;
+		D3dppFull.MultiSampleQuality = 0;
+		D3dppFull.SwapEffect = D3DSWAPEFFECT_DISCARD;
+		D3dppFull.hDeviceWindow = hWnd;
+		D3dppFull.EnableAutoDepthStencil = FALSE;
+		D3dppFull.Windowed = FALSE;
+		D3dppFull.AutoDepthStencilFormat = D3DFMT_A1R5G5B5;
+		D3dppFull.Flags = 0;
+		D3dppFull.FullScreen_RefreshRateInHz = 0;
+		D3dppFull.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
+
+		if (!WinMode) {
+			D3dPresentParameters = D3dppFull;
+		}
+		else {
+			D3dPresentParameters = D3dppWin;
+		}
 	}
 
 	VOID DirectX::UpdateKeyState() {
@@ -233,6 +256,72 @@ namespace DX {
 		}
 		pFont.clear();
 		std::unordered_map<std::string, LPD3DXFONT>().swap(pFont);
+	}
+
+	VOID DirectX::ChangeDisplayMode(HWND hWnd, RECT WinRect) {
+		WinMode = !WinMode;
+
+		if (WinMode) {
+			D3dPresentParameters = D3dppWin;
+			GetWindowRect(hWnd, &WinRect);
+		}
+		else {
+			D3dPresentParameters = D3dppFull;
+		}
+
+		HRESULT result = pD3Device->TestCooperativeLevel();
+
+		if (result != D3D_OK) {
+			if (result == D3DERR_DEVICENOTRESET) {
+				AllRelease();
+				pD3Device->Reset(&D3dPresentParameters);
+				InitD3Device(hWnd, (FLOAT)WinRect.right, (FLOAT)WinRect.bottom);
+			}
+		}
+
+		if (WinMode) {
+			SetWindowLong(hWnd, GWL_STYLE, WS_OVERLAPPEDWINDOW | WS_VISIBLE);
+			SetWindowPos(hWnd, HWND_NOTOPMOST,
+				WinRect.left,
+				WinRect.top,
+				WinRect.right - WinRect.left,
+				WinRect.bottom - WinRect.top,
+				SWP_SHOWWINDOW);
+		}
+		else {
+			SetWindowLong(hWnd, GWL_STYLE, WS_POPUP | WS_VISIBLE);
+			SetWindowPos(hWnd, HWND_NOTOPMOST,
+				0,
+				0,
+				GetSystemMetrics(SM_CXSCREEN),
+				GetSystemMetrics(SM_CYSCREEN),
+				SWP_SHOWWINDOW);
+		}
+	}
+
+	HRESULT DirectX::ChangeWindowSize(HWND hWnd) {
+		HRESULT hr = pD3Device->Reset(&D3dPresentParameters);
+		if (FAILED(hr)) {
+			if (hr == D3DERR_DEVICELOST) {
+				DeviceLost = true;
+			}
+		}
+		else {
+			DestroyWindow(hWnd);
+		}
+
+		D3DVIEWPORT9 vp;
+		vp.X = 0;
+		vp.Y = 0;
+		vp.Width = D3dPresentParameters.BackBufferWidth;
+		vp.Height = D3dPresentParameters.BackBufferHeight;
+		vp.MinZ = 0.0f;
+		vp.MaxZ = 1.0f;
+		hr = pD3Device->SetViewport(&vp);
+		if (FAILED(hr)) {
+			DestroyWindow(hWnd);
+		}
+		return hr;
 	}
 
 	VOID DirectX::LoadTexture(const CHAR* FilePath, std::string TextureName) {
@@ -375,6 +464,13 @@ namespace DX {
 			customvertex[i].z = 0.0f;
 			customvertex[i].rhw = 1.0f;
 			customvertex[i].color = 0xFFFFFFFF;
+		}
+
+		if (is_Reverse) {
+			pD3Device->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_MIRROR);
+		}
+		else {
+			pD3Device->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_CLAMP);
 		}
 
 		customvertex[0].tu = is_Reverse ? tu + tw : tu;

@@ -52,16 +52,24 @@ void PLAYER::SetLiveCount(int LiveCount) {
 	this->LiveCount = LiveCount;
 }
 
+<<<<<<< HEAD
+void PLAYER::Animation(int frame,int pages) {
+	if (frame > 4) {
+		dx.DrawEx(pos.X, pos.Y, 0.0f, size.Width, size.Height, (float)direction, 1.0f, false, "Player", 0.0f, 0.0f, 0.25f, 0.25f);
+	}
+	frame = 0;
+=======
 void PLAYER::Animation(std::string TextureName) {
-	if (anime.frame >= anime.change_frame) {
+	if (anime.frame > anime.change_frame) {
 		anime.UV.X += Texture_WU;
 		if (anime.UV.X >= Texture_WU * 3) {
-			anime.UV.X = 0.0f;
+			anime.UV.X == 0.0f;
 		}
 		anime.frame = 0;
 	}
-	dx.DrawEx(pos.X, pos.Y, 0, size.Width, size.Height, (float)direction, 1.0f, false, TextureName, anime.UV.X, anime.UV.Y, Texture_WU, Texture_HV);
+	dx.DrawEx(pos.X, pos.Y, 0, size.Width, size.Height, direction, 1.0f, false, TextureName, anime.UV.X, anime.UV.Y, Texture_WU, Texture_HV);
 	anime.frame++;
+>>>>>>> origin/Ohura
 }
 
 void PLAYER::Move() {
@@ -83,16 +91,21 @@ void PLAYER::Move() {
 	}
 }
 
-PLAYER::PLAYER():radius(20),LiveCount(3),direction(RIGHT){
+<<<<<<< HEAD
+PLAYER::PLAYER():LiveCount(3),direction(RIGHT),CenterPos(pos.X + size.Width / 2, pos.Y + size.Height / 2) {
 	SetPos(50, 50);
+=======
+PLAYER::PLAYER():LiveCount(3),direction(RIGHT){
+	SetPos(160, 140);
+>>>>>>> origin/Ohura
 	SetSize(40, 40);
-	SetCenterPos(pos.X + size.Width / 2, pos.Y + size.Height / 2);
 }
 
 PLAYER::~PLAYER() {
 
 }
 
+<<<<<<< HEAD
 Vec2 ENEMY_BASE::GetPos() {
 	return this->pos;
 }
@@ -110,11 +123,7 @@ void ENEMY_BASE::SetSize(float width, float height) {
 	this->size.Width = width;
 	this->size.Height = height;
 }
-
-COOKIE::COOKIE():is_dead(false),size(30,30),radius(size.Width / 2){
-
-}
-
+=======
 Vec2 COOKIE::GetPos() {
 	return this->CenterPos;
 }
@@ -123,3 +132,8 @@ void COOKIE::SetPos(float x,float y) {
 	this->CenterPos.X = x;
 	this->CenterPos.Y = y;
 }
+
+COOKIE::COOKIE():size(30,30),is_dead(false) {
+
+}
+>>>>>>> origin/Ohura

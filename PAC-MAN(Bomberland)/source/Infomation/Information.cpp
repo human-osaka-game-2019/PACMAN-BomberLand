@@ -21,7 +21,7 @@ void INFORMATION::Load() {
 }
 
 void INFORMATION::Draw() {
-	dx.Draw(0, 0, window_width, window_height, 0.0f, 1.0f, false, "Info_BG");
+	dx.Draw(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, 0.0f, 1.0f, false, "Info_BG");
 	dx.Draw(460, 80, 1000, 200, 0.0f, 1.0f, false, "game_rule");
 }
 

@@ -32,7 +32,7 @@ void UI::JumpUi(float acceleration) {
 	Pos.Y -= speed.vy;
 }
 
-UI::UI() {
+UI::UI(){
 
 }
 

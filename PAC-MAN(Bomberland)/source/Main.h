@@ -4,18 +4,17 @@
 #include <windows.h>
 #include <tchar.h>
 
-#include "../source/DirectX/DirectX.h"
+#include "../../DirectX/DirectX.h"
 #include "../source/Scene.h"
 
 using DX::DirectX;
 
 extern DirectX dx;
 
-//!ウィンドウの横幅
-const INT window_width = 1920;
+extern RECT WinRect;
 
-//!ウィンドウの縦幅
-const INT window_height = 1080;
+#define DISPLAY_WIDTH 1920
+#define DISPLAY_HEIGHT 1080
 
 extern SCENE_BASE::SCENE g_scene;
 

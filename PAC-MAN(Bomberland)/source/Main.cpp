@@ -14,6 +14,7 @@
 #endif
 
 DirectX dx;
+RECT WinRect;
 SCENE_BASE::SCENE g_scene = SCENE_BASE::SCENE::Title;
 
 /*
@@ -35,7 +36,7 @@ INT WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	HWND hWnd = GenerateWindow(&hInstance, API_NAME);
 
-	dx.InitDirectX(hWnd);
+	dx.InitDirectX(hWnd, DISPLAY_WIDTH, DISPLAY_HEIGHT);
 
 	Mainloop(&msg, &title, &information, &game, &gameclear, &gameover);
 
@@ -47,13 +48,33 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 {
 	switch (msg)
 	{
+	case WM_ACTIVATE:
+		dx.is_Active = (LOWORD(wp) != 0);
+		break;
+
 	case WM_DESTROY:
+		dx.AllRelease();
 		PostQuitMessage(0);
+		hWnd = NULL;
 		return 0;
+
+	case WM_SIZE:
+		if (dx.D3dPresentParameters.Windowed != TRUE)
+			break;
+		if (dx.pD3Device || wp == SIZE_MINIMIZED)
+			break;
+		dx.D3dPresentParameters.BackBufferWidth = LOWORD(lp);
+		dx.D3dPresentParameters.BackBufferHeight = HIWORD(lp);
+		if (dx.DeviceLost)
+			break;
+		if (wp == SIZE_MAXIMIZED || wp == SIZE_RESTORED)
+			dx.ChangeWindowSize(hWnd);
+		break;
 		
 	case WM_SYSKEYDOWN:
 		switch (wp){
 		case VK_RETURN:
+			dx.ChangeDisplayMode(hWnd, WinRect);
 			return 0;
 		case VK_F4:
 			PostMessage(hWnd, WM_CLOSE, 0, 0);
@@ -82,19 +103,36 @@ HWND GenerateWindow(HINSTANCE* hInstance, const TCHAR* API_NAME) {
 
 	RegisterClass(&Wndclass);
 
-	return CreateWindow(
-		API_NAME,
-		API_NAME,
-		WS_OVERLAPPEDWINDOW | WS_VISIBLE,
-		0,
-		0,
-		window_width,
-		window_height,
-		NULL,
-		NULL,
-		*hInstance,
-		NULL
-	);
+	if (dx.WinMode) {
+		return CreateWindow(
+			API_NAME,
+			API_NAME,
+			WS_OVERLAPPEDWINDOW | WS_VISIBLE,
+			CW_USEDEFAULT,
+			CW_USEDEFAULT,
+			DISPLAY_WIDTH,
+			DISPLAY_HEIGHT,
+			NULL,
+			NULL,
+			*hInstance,
+			NULL
+		);
+	}
+	else {
+		return CreateWindow(
+			API_NAME,
+			API_NAME,
+			WS_POPUP | WS_VISIBLE,
+			0,
+			0,
+			DISPLAY_WIDTH,
+			DISPLAY_HEIGHT,
+			NULL,
+			NULL,
+			*hInstance,
+			NULL
+		);
+	}
 }
 
 VOID Mainloop(MSG* msg,TITLE* title,INFORMATION* information, GAME* game,GAMECLEAR* gameclear, GAMEOVER* gameover) {

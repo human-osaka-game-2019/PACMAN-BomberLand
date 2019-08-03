@@ -18,8 +18,9 @@ void GAME::UpdateScene() {
 }
 
 void GAME::Load() {
-	dx.LoadTexture("resource/Map/map.png", "map_BG");
-	dx.LoadTexture("resource/Map/wall.png", "wall");
+	dx.LoadTexture("resource/BackGround/Main_bg.jpg", "Main_BG");
+	dx.LoadTexture("resource/Map/map.png", "Map_BG");
+	dx.LoadTexture("resource/Map/wall.png", "Wall");
 	dx.LoadTexture("resource/Character/Player/Player.png", "Player");
 	dx.LoadTexture("resource/Map/Cookie.png", "Cookie");
 
@@ -30,6 +31,8 @@ void GAME::Control() {
 
 	player.Move();
 	JudgeWall();
+
+	BG_tv += 0.00025f;
 
 	if (player.GetLiveCount() == 0) {
 		is_clear = false;
@@ -44,11 +47,14 @@ void GAME::Control() {
 }
 
 void GAME::Draw() {
+
+	dx.DrawEx(0, 0, 0, window_width, window_height, 0.0f, 1.0f, false, "Main_BG", BG_tu, BG_tv, 1.0f, 1.0f);
+
 	MAP map[16][32];
 	for (int row = 0; row < 16; row++) {
 		for (int col = 0; col < 32; col++) {
 			if (col % 2 == 0 || row % 2 == 0) {
-				dx.Draw(map_width * col + width_margin / 2, map_height * row + height_margin / 2, map_width, map_height, 0.0f, 1.0f, false, "wall");
+				dx.Draw(map_width * col + width_margin / 2, map_height * row + height_margin / 2, map_width, map_height, 0.0f, 1.0f, false, "Wall");
 			}
 			else {
 
@@ -60,7 +66,7 @@ void GAME::Draw() {
 				}
 				
 				dx.Draw(cookie[col * row].GetPos().X, cookie[col * row].GetPos().Y, cookie_size.Width, cookie_size.Height, 0.0f, 1.0f, false, "Cookie");
-				dx.Draw(map_width * col + width_margin / 2, map_height * row + height_margin / 2, map_width, map_height, 0.0f, 1.0f, false, "map_BG");
+				dx.Draw(map_width * col + width_margin / 2, map_height * row + height_margin / 2, map_width, map_height, 0.0f, 1.0f, false, "Map_BG");
 			}
 		}
 	}
@@ -81,6 +87,7 @@ void GAME::Release() {
 	dx.ReleaseTexture("Player");
 	dx.ReleaseTexture("wall");
 	dx.ReleaseTexture("map_BG");
+	dx.ReleaseTexture("Main_BG");
 
 	if (is_clear) {
 		g_scene = GameClear;
@@ -111,7 +118,12 @@ void GAME::JudgeWall() {
 	}
 }
 
-GAME::GAME():map_width(50),map_height(50),LiveCount_width(50),LiveCount_height(50),width_margin(window_width - 1600),height_margin(window_height - 800),cookie_is_dead(false), is_clear(false){
+GAME::GAME():map_width(50),map_height(50),
+BG_tu(0.0f),BG_tv(0.0f),
+window_width(1920),window_height(1080),
+LiveCount_width(50),LiveCount_height(50),
+width_margin(window_width - 1600),height_margin(window_height - 800),cookie_is_dead(false),
+is_clear(false){
 
 }
 

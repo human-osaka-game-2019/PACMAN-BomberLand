@@ -12,9 +12,6 @@
     <Filter Include="便利ファイル">
       <UniqueIdentifier>{eb4f6f08-66b4-458e-8295-372c97c68055}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DirectX">
-      <UniqueIdentifier>{b1974d9d-91c5-4ab3-9364-5c6183d8cb4d}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Main.h">
@@ -49,9 +46,6 @@
     </ClInclude>
     <ClInclude Include="source\Utility\Vertex.h">
       <Filter>便利ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="source\DirectX\DirectX.h">
-      <Filter>DirectX</Filter>
     </ClInclude>
     <ClInclude Include="source\Scene.h">
       <Filter>ヘッダー ファイル</Filter>

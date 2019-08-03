@@ -44,7 +44,7 @@ namespace DX {
 		*@param hWnd ウィンドウハンドル
 		*@return 成功したかどうか
 		*/
-		HRESULT InitD3Device(HWND hWnd);
+		HRESULT InitD3Device(HWND hWnd, FLOAT Width, FLOAT Height);
 
 		/*
 		*@brief Dinputの初期化
@@ -63,7 +63,7 @@ namespace DX {
 		*@brief PresentParametersの初期化
 		*@param hWnd ウィンドウハンドル
 		*/
-		VOID InitPresentParameters(HWND hWnd);
+		VOID InitPresentParameters(HWND hWnd, FLOAT WIDTH, FLOAT HEIGHT);
 
 		/*
 		*@brief テクスチャの初期化
@@ -140,6 +140,11 @@ namespace DX {
 
 		//! ウィンドウの設定
 		D3DPRESENT_PARAMETERS D3dPresentParameters;
+		D3DPRESENT_PARAMETERS D3dppWin;
+		D3DPRESENT_PARAMETERS D3dppFull;
+
+		bool is_Active;
+		bool DeviceLost;
 
 		//! DirectInputのキーボードデバイス
 		LPDIRECTINPUTDEVICE8 pDxIKeyDevice;
@@ -152,6 +157,8 @@ namespace DX {
 
 		//! フォント
 		std::unordered_map<std::string, LPD3DXFONT> pFont;
+
+		bool WinMode;
 
 		//! キーの状態
 		enum KEY_STATE {
@@ -178,7 +185,7 @@ namespace DX {
 		*@brief DirectXの初期化
 		*@param hWnd ウィンドウハンドル
 		*/
-		HRESULT InitDirectX(HWND hWnd);
+		HRESULT InitDirectX(HWND hWnd, FLOAT Window_width, FLOAT Window_height);
 
 		/*
 		*@brief キーの状態の更新
@@ -201,6 +208,16 @@ namespace DX {
 		*@param テクスチャ名
 		*/
 		VOID ReleaseTexture(std::string TextureName);
+
+		/*
+		*@brief WindowMode切替
+		*/
+		VOID ChangeDisplayMode(HWND hWnd, RECT WinRect);
+
+		/*
+		*@brief WindowSizeの変更
+		*/
+		HRESULT ChangeWindowSize(HWND hWnd);
 
 		/*
 		*@brief テクスチャの読み込み

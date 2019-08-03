@@ -39,7 +39,7 @@ void TITLE::Control() {
 }
 
 void TITLE::Draw() {
-	dx.Draw(0, 0, window_width, window_height, 0.0f, 1.0f, false, "Title_BG");
+	dx.Draw(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, 0.0f, 1.0f, false, "Title_BG");
 	dx.Draw(160, 45, 1600, 250, 0.0f, 1.0f, false, "TitleLogo");
 	dx.Draw(start_ui.GetPos().X, start_ui.GetPos().Y, start_ui.GetSize().Width, start_ui.GetSize().Height, 0.0f, 1.0f, false, "PushSpace");
 }
