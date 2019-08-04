@@ -22,6 +22,7 @@ void GAME::Load() {
 	dx.LoadTexture("resource/Map/map.png", "Map_BG");
 	dx.LoadTexture("resource/Map/wall.png", "Wall");
 	dx.LoadTexture("resource/Character/Player/Player.png", "Player");
+	dx.LoadTexture("resource/Character/Enemy/Enemy.png", "Enemy");
 	dx.LoadTexture("resource/Map/Cookie.png", "Cookie");
 
 	step = MainStep;
@@ -39,6 +40,15 @@ void GAME::Control() {
 		step = ReleaseStep;
 	}
 
+	for (int i = 0; i < 512; i++) {
+		if (!cookie[i].is_dead) {
+			is_clear = false;
+		}
+		else {
+			is_clear = true;
+		}
+	}
+
 #ifdef _DEBUG
 	if (dx.KeyState[DIK_SPACE] == dx.PUSH) {
 		step = ReleaseStep;
@@ -50,32 +60,40 @@ void GAME::Draw() {
 
 	dx.DrawEx(0, 0, 0, window_width, window_height, 0.0f, 1.0f, false, "Main_BG", BG_tu, BG_tv, 1.0f, 1.0f);
 
-	MAP map[16][32];
 	for (int row = 0; row < 16; row++) {
 		for (int col = 0; col < 32; col++) {
 			if (col % 2 == 0 || row % 2 == 0) {
-				dx.Draw(map_width * col + width_margin / 2, map_height * row + height_margin / 2, map_width, map_height, 0.0f, 1.0f, false, "Wall");
-			}
-			else {
+				dx.Draw(map_width * col + width_margin / 2, map_height * row + height_margin / 2, map_width, map_height, 0.0f, 1.0f, false, "Map_BG");
 
 				if (!cookie[col * row].is_dead) {
 					cookie[col * row].SetPos(map_width * col + width_margin / 2, map_height * row + height_margin / 2);
 				}
-				if (sqrt(cookie->radius + player_r) > (double)sqrt(cookie_pos.X - player.GetPos().X) + (double)sqrt(cookie_pos.Y - player.GetPos().Y)) {
+				if (sqrt(cookie->radius + player.radius) > (double)sqrt(cookie[col * row].GetPos().X - player.GetPos().X) + (double)sqrt(cookie[col * row].GetPos().Y - player.GetPos().Y)) {
 					cookie[col * row].is_dead = true;
 				}
-				
-				dx.Draw(cookie[col * row].GetPos().X, cookie[col * row].GetPos().Y, cookie_size.Width, cookie_size.Height, 0.0f, 1.0f, false, "Cookie");
-				dx.Draw(map_width * col + width_margin / 2, map_height * row + height_margin / 2, map_width, map_height, 0.0f, 1.0f, false, "Map_BG");
+				if (!cookie[col * row].is_dead) {
+					dx.Draw(cookie[col * row].GetPos().X, cookie[col * row].GetPos().Y, cookie->GetSize().Width, cookie->GetSize().Height, 0.0f, 1.0f, false, "Cookie");
+				}
+			}
+			else {
+				dx.Draw(map_width * col + width_margin / 2, map_height * row + height_margin / 2, map_width, map_height, 0.0f, 1.0f, false, "Wall");
 			}
 		}
 	}
+
+	//for (int i = 0; i < 100; i++) {
+	//	if (!cookie[i].is_dead) {
+	//		dx.Draw(cookie[i].GetPos().X, cookie[i].GetPos().Y, cookie->GetSize().Width, cookie->GetSize().Height, 0.0f, 1.0f, false, "Cookie");
+	//	}
+	//}
 
 	if (dx.KeyState[DIK_A] == dx.PUSH) {
 		player.SetLiveCount(player.GetLiveCount() - 1);
 	}
 
 	DrawLiveCount();
+
+	dx.DrawEx(enemy_pink.GetPos().X, enemy_pink.GetPos().Y, 0.0f, enemy_pink.GetSize().Width, enemy_pink.GetSize().Height, 0.0f, 1.0f, false, "Enemy", 0.0f, 0.0f, 64.0f / 1024.0f, 64.0f / 1024.0f);
 
 	player.Animation("Player");
 
@@ -84,7 +102,7 @@ void GAME::Draw() {
 void GAME::Release() {
 	dx.ReleaseTexture("Player");
 	dx.ReleaseTexture("Cookie");
-	dx.ReleaseTexture("Player");
+	dx.ReleaseTexture("Enemy");
 	dx.ReleaseTexture("wall");
 	dx.ReleaseTexture("map_BG");
 	dx.ReleaseTexture("Main_BG");
@@ -122,7 +140,7 @@ GAME::GAME():map_width(50),map_height(50),
 BG_tu(0.0f),BG_tv(0.0f),
 window_width(1920),window_height(1080),
 LiveCount_width(50),LiveCount_height(50),
-width_margin(window_width - 1600),height_margin(window_height - 800),cookie_is_dead(false),
+width_margin(window_width - 1600),height_margin(window_height - 800),
 is_clear(false){
 
 }

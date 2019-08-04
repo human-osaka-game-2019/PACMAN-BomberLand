@@ -102,6 +102,15 @@ void ENEMY_BASE::SetPos(float x, float y) {
 	this->pos.Y = y;
 }
 
+MapPos ENEMY_BASE::GetMapPos() {
+	return this->map_pos;
+}
+
+void ENEMY_BASE::SetMapPos(int col, int row) {
+	this->map_pos.Col = col;
+	this->map_pos.Row = row;
+}
+
 Size ENEMY_BASE::GetSize() {
 	return this->size;
 }
@@ -111,7 +120,23 @@ void ENEMY_BASE::SetSize(float width, float height) {
 	this->size.Height = height;
 }
 
-COOKIE::COOKIE():is_dead(false),size(30,30),radius(size.Width / 2){
+void ENEMY_PINK::Animation() {
+
+}
+
+void ENEMY_BRUE::Animation() {
+
+}
+
+void ENEMY_YELLOW::Animation() {
+
+}
+
+void ENEMY_RED::Animation() {
+
+}
+
+COOKIE::COOKIE():is_dead(false),size(20,20),radius(5){
 
 }
 
@@ -122,4 +147,8 @@ Vec2 COOKIE::GetPos() {
 void COOKIE::SetPos(float x,float y) {
 	this->CenterPos.X = x;
 	this->CenterPos.Y = y;
+}
+
+Size COOKIE::GetSize() {
+	return this->size;
 }

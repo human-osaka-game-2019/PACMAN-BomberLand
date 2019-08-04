@@ -15,6 +15,10 @@ struct Anime {
 	Anime();
 };
 
+struct MapPos {
+	int Col, Row;
+};
+
 class PLAYER {
 public:
 	enum DIRECTION {
@@ -70,30 +74,34 @@ public:
 
 	Vec2 GetPos();
 	void SetPos(float x, float y);
+	MapPos GetMapPos();
+	void SetMapPos(int col, int row);
 	Size GetSize();
 	void SetSize(float width, float height);
+	virtual void Animation() = 0;
 
 protected:
 	Vec2 pos;
+	MapPos map_pos;
 	Size size;
 private:
 
 };
 
 class ENEMY_PINK:public ENEMY_BASE {
-
+public: void Animation();
 };
 
 class ENEMY_BRUE:public ENEMY_BASE {
-
+public: void Animation();
 };
 
 class ENEMY_YELLOW:public ENEMY_BASE {
-
+public: void Animation();
 };
 
 class ENEMY_RED:public ENEMY_BASE {
-
+public: void Animation();
 };
 
 class COOKIE {
@@ -103,6 +111,7 @@ public:
 
 	Vec2 GetPos();
 	void SetPos(float x, float y);
+	Size GetSize();
 
 	COOKIE();
 

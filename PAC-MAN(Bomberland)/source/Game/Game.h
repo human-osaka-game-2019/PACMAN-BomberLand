@@ -24,7 +24,9 @@ private:
 	float BG_tu, BG_tv;
 
 	struct MAP {
-		Vec2 MapPosition = { 0.0f,0.0f };
+		Vec2 pos = { 0.0f,0.0f };
+		const Size size = { 50.0f,50.0f };
+		Vec2 CenterPos = { pos.X + size.Width / 2 , pos.Y + size.Height };
 	};
 
 	const float window_width;
@@ -33,14 +35,10 @@ private:
 	const float height_margin;
 	bool is_clear;
 
-	Vec2 cookie_pos = {500,500};
-	Size cookie_size = {50,50};
-	bool cookie_is_dead;
-	float cookie_r = cookie_size.Width / 2;
 
 	PLAYER player;
+	ENEMY_PINK enemy_pink;
 	COOKIE cookie[512];
-	float player_r = player.GetSize().Width / 2;
 
 	void Load();
 	void Control();
