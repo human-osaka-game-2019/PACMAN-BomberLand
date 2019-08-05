@@ -35,7 +35,7 @@ private:
 	const float height_margin;
 	bool is_clear;
 
-
+	BOMB bomb;
 	PLAYER player;
 	ENEMY_PINK enemy_pink;
 	COOKIE cookie[512];

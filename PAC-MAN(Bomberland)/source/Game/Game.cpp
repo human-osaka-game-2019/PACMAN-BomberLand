@@ -24,6 +24,7 @@ void GAME::Load() {
 	dx.LoadTexture("resource/Character/Player/Player.png", "Player");
 	dx.LoadTexture("resource/Character/Enemy/Enemy.png", "Enemy");
 	dx.LoadTexture("resource/Map/Cookie.png", "Cookie");
+	dx.LoadTexture("resource/Bomb/bomb.png", "BOMB");
 
 	step = MainStep;
 }
@@ -48,6 +49,17 @@ void GAME::Control() {
 			is_clear = true;
 		}
 	}
+
+	if (bomb.pos.X <= this->player.GetPos().X + this->player.Texture_WU &&
+		bomb.pos.Y < this->player.GetPos().Y + this->player.Texture_HV  &&
+		bomb.pos.X + bomb.size.Width >= this->player.GetPos().X  &&
+		bomb.pos.Y + bomb.size.Height >= this->player.GetPos().Y)
+		{
+
+		bomb.is_Dead = true;
+
+		}
+
 
 #ifdef _DEBUG
 	if (dx.KeyState[DIK_SPACE] == dx.PUSH) {
@@ -77,8 +89,21 @@ void GAME::Draw() {
 			}
 			else {
 				dx.Draw(map_width * col + width_margin / 2, map_height * row + height_margin / 2, map_width, map_height, 0.0f, 1.0f, false, "Wall");
+				
+				
 			}
+			
 		}
+
+		
+		if (!bomb.is_Dead) {
+			dx.DrawEx(bomb.pos.X, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0, 128.0f / 1024.f, 128.0f / 1024.0f);
+		}
+		else if (bomb.is_Dead)
+		{
+			dx.DrawEx(bomb.pos.X, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.125, 128.0f / 1024.f, 128.0f / 1024.0f);
+		}
+
 	}
 
 	//for (int i = 0; i < 100; i++) {
