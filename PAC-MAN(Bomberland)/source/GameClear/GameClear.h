@@ -20,4 +20,4 @@ private:
 
 };
 
-#endif //GAMECLEAR_H_
+#endif GAMECLEAR_H_

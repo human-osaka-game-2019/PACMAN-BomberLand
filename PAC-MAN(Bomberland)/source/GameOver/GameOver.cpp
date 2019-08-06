@@ -18,7 +18,7 @@ void GAMEOVER::UpdateScene() {
 }
 
 void GAMEOVER::Load() {
-
+	dx.LoadTexture("resource/BackGround/Information.png", "Info_BG");
 }
 
 void GAMEOVER::Control(){
@@ -28,11 +28,11 @@ void GAMEOVER::Control(){
 }
 
 void GAMEOVER::Draw() {
-
+	dx.Draw(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, 0.0f, 1.0f, false, "Info_BG");
 }
 
 void GAMEOVER::Release() {
-	
+	dx.ReleaseTexture("Info_BG");
 }
 
 GAMEOVER::GAMEOVER() {

@@ -20,4 +20,4 @@ private:
 
 };
 
-#endif //GAMEOVER_H_
+#endif GAMEOVER_H_

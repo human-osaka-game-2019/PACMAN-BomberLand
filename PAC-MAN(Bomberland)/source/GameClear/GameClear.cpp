@@ -18,7 +18,7 @@ void GAMECLEAR::UpdateScene() {
 }
 
 void GAMECLEAR::Load() {
-
+	dx.LoadTexture("resource/BackGround/Information.png", "Info_BG");
 }
 
 void GAMECLEAR::Control() {
@@ -28,11 +28,11 @@ void GAMECLEAR::Control() {
 }
 
 void GAMECLEAR::Draw() {
-
+	dx.Draw(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT, 0.0f, 1.0f, false, "Info_BG");
 }
 
 void GAMECLEAR::Release() {
-
+	dx.ReleaseTexture("Info_BG");
 }
 
 GAMECLEAR::GAMECLEAR() {

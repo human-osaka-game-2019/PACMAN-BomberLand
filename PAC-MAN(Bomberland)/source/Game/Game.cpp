@@ -25,7 +25,10 @@ void GAME::Load() {
 	dx.LoadTexture("resource/Character/Enemy/Enemy.png", "Enemy");
 	dx.LoadTexture("resource/Map/Cookie.png", "Cookie");
 	dx.LoadTexture("resource/Bomb/bomb.png", "BOMB");
-
+	dx.LoadTexture("resource/Character/Enemy/Yellow.png", "YELLOW");
+	dx.LoadTexture("resource/Character/Enemy/Red.png", "RED");
+	dx.LoadTexture("resource/Character/Enemy/Pink.png", "PINK");
+	dx.LoadTexture("resource/Character/Enemy/Blue.png", "BLUE");
 	step = MainStep;
 }
 
@@ -89,21 +92,51 @@ void GAME::Draw() {
 			}
 			else {
 				dx.Draw(map_width * col + width_margin / 2, map_height * row + height_margin / 2, map_width, map_height, 0.0f, 1.0f, false, "Wall");
+
+				
+				
+					
 				
 				
 			}
 			
 		}
-
+		
 		
 		if (!bomb.is_Dead) {
 			dx.DrawEx(bomb.pos.X, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0, 128.0f / 1024.f, 128.0f / 1024.0f);
+			
 		}
 		else if (bomb.is_Dead)
 		{
-			dx.DrawEx(bomb.pos.X, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.125, 128.0f / 1024.f, 128.0f / 1024.0f);
-		}
+			
+			dx.DrawEx(bomb.pos.X - 535.5, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X - 471, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X - 392.5, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X - 314, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X - 235.5, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X - 157, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X - 78.5, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.110, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X + 78.5, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X + 78.5, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X + 157, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X + 235.5, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X + 314, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X + 392.5, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X + 471, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X + 549.5, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X + 628, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X + 706.5, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X + 785, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X + 863.5, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X + 942, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 128.0f / 1024.0f);
+			dx.DrawEx(bomb.pos.X + 987, bomb.pos.Y, 0, bomb.size.Width, bomb.size.Height, 0.0f, 1.0f, false, "BOMB", 0, 0.111, 128.0f / 1024.f, 256.0f / 1024.0f);
 
+
+
+
+		}
 	}
 
 	//for (int i = 0; i < 100; i++) {

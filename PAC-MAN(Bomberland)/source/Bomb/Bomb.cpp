@@ -5,8 +5,8 @@
 BOMB::BOMB()
 {
 	is_Dead = false;
-	pos.X = 643;
-	pos.Y = 674;
+	pos.X = 693;
+	pos.Y = 824;
 	size.Width = 80;
 	size.Height = 80;
 }
