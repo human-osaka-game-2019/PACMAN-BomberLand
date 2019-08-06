@@ -59,7 +59,7 @@ private:
 	Size size;
 	DIRECTION direction;
 	int LiveCount;
-	float speed = 7.5f;
+	float speed = 2.0f;
 };
 
 class ENEMY_BASE {
